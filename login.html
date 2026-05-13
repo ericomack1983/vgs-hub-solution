@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — VGS Solution Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --visa-blue:       #1434cb;
+      --visa-blue-hover: #173be8;
+      --visa-blue-dark:  #0f2595;
+      --visa-gold:       #fcc015;
+      --surface-0:       #ffffff;
+      --surface-1:       #f7f7f7;
+      --text-primary:    #000000;
+      --text-secondary:  #4a4a4a;
+      --text-muted:      #767676;
+      --border:          rgba(0,0,0,0.10);
+      --border-focus:    #1434cb;
+      --negative:        #ad2929;
+      --negative-bg:     rgba(173,41,41,0.08);
+      --elevation-xl: 0 20px 40px -8px rgba(0,0,0,0.18), 0 8px 16px -4px rgba(0,0,0,0.10);
+      --r-xs:   4px;
+      --r-sm:   6px;
+      --r-lg:   16px;
+      --r-xl:   24px;
+      --r-full: 9999px;
+      --font: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: linear-gradient(150deg, #08185e 0%, #1434cb 55%, #1c40e2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid pattern */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none; z-index: 0;
+    }
+    /* Gold glow */
+    body::after {
+      content: '';
+      position: fixed; bottom: -120px; right: -120px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(252,192,21,0.18) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative; z-index: 1;
+      background: var(--surface-0);
+      border-radius: var(--r-xl);
+      box-shadow: var(--elevation-xl);
+      width: 100%; max-width: 420px;
+      overflow: hidden;
+      animation: card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Card top bar — Visa blue accent */
+    .card__bar { height: 4px; background: var(--visa-blue); }
+
+    .card__body { padding: 36px 36px 32px; }
+
+    /* Brand row */
+    .brand {
+      display: flex; align-items: center;
+      gap: 12px; margin-bottom: 32px;
+    }
+    .brand__logo {
+      background: var(--visa-blue); color: #fff;
+      font-size: 16px; font-weight: 900; letter-spacing: 0.08em;
+      padding: 5px 10px; border-radius: var(--r-xs); line-height: 1;
+      flex-shrink: 0;
+    }
+    .brand__divider {
+      width: 1px; height: 26px;
+      background: rgba(0,0,0,0.12);
+    }
+    .brand__text { display: flex; flex-direction: column; gap: 1px; }
+    .brand__title {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-primary); line-height: 1; letter-spacing: -0.01em;
+    }
+    .brand__sub {
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.09em;
+    }
+
+    /* Heading */
+    .card__heading {
+      font-size: 22px; font-weight: 800;
+      letter-spacing: -0.025em; color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .card__sub {
+      font-size: 13px; color: var(--text-muted);
+      margin-bottom: 28px; line-height: 1.5;
+    }
+
+    /* Form fields */
+    .field { display: flex; flex-direction: column; margin-bottom: 16px; }
+    .field label {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .field input {
+      font-family: var(--font); font-size: 15px;
+      padding: 12px 14px; border-radius: var(--r-sm);
+      border: 1.5px solid var(--border);
+      background: var(--surface-1); color: var(--text-primary);
+      width: 100%; outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(20,52,203,0.15);
+      background: #fff;
+    }
+    .field input::placeholder { color: #b0b0b8; }
+
+    /* Password wrapper (show/hide toggle) */
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 44px; }
+    .password-toggle {
+      position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); padding: 4px;
+      display: flex; align-items: center; transition: color 0.15s;
+    }
+    .password-toggle:hover { color: var(--text-primary); }
+
+    /* Error */
+    .error-msg {
+      display: none; align-items: center; gap: 8px;
+      background: var(--negative-bg); color: var(--negative);
+      border: 1px solid rgba(173,41,41,0.2);
+      border-radius: var(--r-sm); padding: 10px 14px;
+      font-size: 13px; font-weight: 600;
+      margin-bottom: 16px; line-height: 1.4;
+    }
+    .error-msg.visible { display: flex; }
+    .error-msg svg { flex-shrink: 0; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%; padding: 13px 20px;
+      background: var(--visa-blue); color: #fff;
+      border: none; border-radius: var(--r-full);
+      font-family: var(--font); font-size: 15px; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.01em;
+      transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover {
+      background: var(--visa-blue-hover);
+      box-shadow: 0 4px 14px rgba(20,52,203,0.35);
+    }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled {
+      opacity: 0.6; cursor: not-allowed;
+      box-shadow: none; transform: none;
+    }
+    .btn-submit .spinner {
+      display: none; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 8px;
+    }
+    .btn-submit.loading .spinner { display: inline-block; }
+    .btn-submit.loading .btn-text { opacity: 0.8; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Divider */
+    .card__divider {
+      height: 1px; background: var(--border);
+      margin: 24px 0;
+    }
+
+    /* Internal notice */
+    .internal-note {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; font-size: 11px; color: var(--text-muted);
+      font-weight: 600; letter-spacing: 0.04em;
+    }
+    .internal-note::before {
+      content: '🔒'; font-size: 11px;
+    }
+
+    /* Footer */
+    .page-footer {
+      position: relative; z-index: 1;
+      margin-top: 24px; text-align: center;
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      line-height: 1.7; font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card" role="main">
+    <div class="card__bar"></div>
+    <div class="card__body">
+
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand__logo">VISA</div>
+        <div class="brand__divider"></div>
+        <div class="brand__text">
+          <span class="brand__title">Government Solutions</span>
+          <span class="brand__sub">Marketplace</span>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="card__heading">Welcome back</h1>
+      <p class="card__sub">Sign in to access the VGS Solution Marketplace.</p>
+
+      <!-- Error -->
+      <div class="error-msg" id="errorMsg" role="alert" aria-live="polite">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="errorText">Invalid email or password.</span>
+      </div>
+
+      <!-- Form -->
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email"
+            placeholder="you@visa.com" autocomplete="email"
+            inputmode="email" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input id="password" name="password" type="password"
+              placeholder="••••••••" autocomplete="current-password" required />
+            <button type="button" class="password-toggle" id="togglePassword"
+              aria-label="Show or hide password">
+              <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="btn-text">Sign in</span>
+        </button>
+      </form>
+
+      <div class="card__divider"></div>
+
+      <p class="internal-note">Internal tool — Visa access only</p>
+
+    </div>
+  </div>
+
+  <p class="page-footer">
+    VGS Solution Marketplace · Created by Erico Rodrigues<br>
+    Visa Inc. © 2025–2026
+  </p>
+
+  <script src="./auth.js"></script>
+  <script>
+    (async function () {
+      /* If already logged in, go straight to the app */
+      const { data: { session } } = await window.__auth.client.auth.getSession();
+      if (session) {
+        window.location.replace("./index.html");
+        return;
+      }
+
+      const form       = document.getElementById("loginForm");
+      const emailInput = document.getElementById("email");
+      const passInput  = document.getElementById("password");
+      const submitBtn  = document.getElementById("submitBtn");
+      const errorMsg   = document.getElementById("errorMsg");
+      const errorText  = document.getElementById("errorText");
+      const toggleBtn  = document.getElementById("togglePassword");
+      const eyeIcon    = document.getElementById("eyeIcon");
+
+      /* Password visibility toggle */
+      toggleBtn.addEventListener("click", () => {
+        const isHidden = passInput.type === "password";
+        passInput.type = isHidden ? "text" : "password";
+        eyeIcon.innerHTML = isHidden
+          ? `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+             <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+             <line x1="1" y1="1" x2="23" y2="23"/>`
+          : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+      });
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        errorMsg.classList.add("visible");
+      }
+      function hideError() {
+        errorMsg.classList.remove("visible");
+      }
+      function setLoading(on) {
+        submitBtn.disabled = on;
+        submitBtn.classList.toggle("loading", on);
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideError();
+
+        const email    = emailInput.value.trim();
+        const password = passInput.value;
+
+        if (!email || !password) {
+          showError("Please enter your email and password.");
+          return;
+        }
+
+        setLoading(true);
+        const { error } = await window.__auth.signIn(email, password);
+        setLoading(false);
+
+        if (error) {
+          showError(error.message || "Invalid email or password.");
+          passInput.value = "";
+          passInput.focus();
+          return;
+        }
+
+        window.location.replace("./index.html");
+      });
+    })();
+  </script>
+
+</body>
+</html>

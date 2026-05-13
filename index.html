@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -32,7 +33,9 @@
         <span class="nav__credit">Built by Erico Rodrigues · Visa Inc.</span>
         <a href="#solutions" class="nav__link">Solutions</a>
         <a href="#faq" class="nav__link">FAQ</a>
+        <span class="nav__user" id="navUser" aria-live="polite"></span>
         <button class="btn btn--primary btn--sm" id="openPilot">Request Demo</button>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" style="display:none" aria-label="Sign out">Sign out</button>
       </nav>
     </div>
   </header>
@@ -556,7 +559,8 @@
       }
     ]
   </script>
-  <script src="./app.js" defer></script>
+  <script src="./auth.js"></script>
+  <script src="./app.js"></script>
 </body>
 
 </html>

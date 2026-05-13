@@ -395,11 +395,28 @@ function setupModalHandlers() {
   });
 }
 
+/* ── Nav user display ─────────────────────────────── */
+function updateNavUser(user) {
+  try {
+    const el = document.getElementById("navUser");
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (el && user?.email) {
+      el.textContent = user.email;
+      el.style.cssText =
+        "font-size:12px;font-weight:600;color:var(--text-muted);" +
+        "max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;";
+    }
+    if (logoutBtn) {
+      logoutBtn.style.display = "";
+      logoutBtn.addEventListener("click", () => window.__auth.signOut());
+    }
+  } catch { /* ok */ }
+}
+
 /* ── Main ─────────────────────────────────────────── */
 function main() {
   const solutions = readSolutions();
 
-  /* Update hero stat */
   try { $("statTotal").textContent = solutions.length; } catch { /* ok */ }
 
   buildFilterTabs(solutions);
@@ -425,4 +442,9 @@ function main() {
   render(solutions);
 }
 
-document.addEventListener("DOMContentLoaded", main);
+document.addEventListener("DOMContentLoaded", async () => {
+  const session = await window.__auth.checkAuth();
+  if (!session) return;
+  updateNavUser(session.user);
+  main();
+});
