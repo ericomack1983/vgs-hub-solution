@@ -404,33 +404,57 @@ function setupModalHandlers() {
 }
 
 /* ── Video Lightbox ───────────────────────────────── */
-function toEmbedUrl(url) {
+function getYouTubeId(url) {
   try {
     const u = new URL(url);
-    const id = u.searchParams.get("v") || u.pathname.split("/").pop();
-    return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-  } catch {
-    return url;
-  }
+    return u.searchParams.get("v") || u.pathname.split("/").pop();
+  } catch { return null; }
 }
 
 function setupLightbox() {
-  const lb      = document.getElementById("videoLightbox");
-  const iframe  = document.getElementById("lbIframe");
+  const lb       = document.getElementById("videoLightbox");
+  const content  = document.getElementById("lbContent");
   const closeBtn = document.getElementById("lbClose");
   const backdrop = document.getElementById("lbBackdrop");
   if (!lb) return;
 
   function open(videoUrl) {
-    iframe.src = toEmbedUrl(videoUrl);
-    lb.hidden  = false;
+    const ytId = getYouTubeId(videoUrl);
+    const thumb = ytId
+      ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
+      : null;
+
+    content.innerHTML = `
+      <div class="lb-preview">
+        ${thumb ? `<img class="lb-preview__thumb" src="${escapeHtml(thumb)}"
+          onerror="this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'"
+          alt="Video preview" />` : ""}
+        <div class="lb-preview__overlay">
+          <div class="lb-preview__play" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <p class="lb-preview__title">AAvance NGO Disbursement</p>
+          <p class="lb-preview__sub">This video cannot be embedded — watch it directly on YouTube.</p>
+          <a class="btn btn--video lb-preview__cta"
+             href="${escapeHtml(videoUrl)}" target="_blank" rel="noreferrer noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+            </svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>`;
+
+    lb.hidden = false;
     document.body.style.overflow = "hidden";
     closeBtn.focus();
   }
 
   function close() {
-    lb.hidden  = true;
-    iframe.src = "";
+    lb.hidden = true;
+    content.innerHTML = "";
     document.body.style.overflow = "";
   }
 
@@ -440,7 +464,6 @@ function setupLightbox() {
     if (e.key === "Escape" && !lb.hidden) close();
   });
 
-  /* Delegate from the solutions grid */
   document.getElementById("solutionsGrid").addEventListener("click", (e) => {
     const btn = e.target.closest('[data-action="video"]');
     if (!btn) return;

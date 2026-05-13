@@ -727,17 +727,40 @@ input[readonly], textarea[readonly] {
 }
 .video-lightbox__close:hover { background: rgba(255,255,255,0.3); }
 
-.video-lightbox__frame {
+.lb-preview {
   position: relative; width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  border-radius: var(--r-lg); overflow: hidden;
   box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+  background: #0a0a0a;
 }
-.video-lightbox__frame iframe {
+.lb-preview__thumb {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  border: none;
+  object-fit: cover; opacity: 0.45;
+}
+.lb-preview__overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; padding: 32px; text-align: center;
+}
+.lb-preview__play {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(255,0,0,0.9);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+  box-shadow: 0 8px 24px rgba(255,0,0,0.4);
+}
+.lb-preview__title {
+  font-size: 20px; font-weight: 800; color: #fff;
+  letter-spacing: -0.02em;
+}
+.lb-preview__sub {
+  font-size: 13px; color: rgba(255,255,255,0.6); max-width: 360px; line-height: 1.5;
+}
+.lb-preview__cta {
+  margin-top: 8px; padding: 12px 28px; font-size: 15px;
 }
 
 /* ── Empty State ─────────────────────────────────── */
