@@ -83,6 +83,7 @@ function cardTemplate(solution) {
   const tryUrl      = solution.tryUrl && solution.tryUrl !== "#" ? solution.tryUrl : null;
   const githubUrl   = solution.githubUrl && solution.githubUrl !== "#" ? solution.githubUrl : null;
   const blueprintUrl = getBlueprintUrl(solution);
+  const videoUrl    = solution.videoUrl || null;
 
   /* ── Badges ── */
   const badgesHtml = [
@@ -139,6 +140,13 @@ function cardTemplate(solution) {
     ? `<a class="btn btn--dark btn--sm" href="${escapeHtml(githubUrl)}" target="_blank" rel="noreferrer">GitHub</a>`
     : `<button class="btn btn--dark btn--sm" type="button" data-action="pilot">GitHub</button>`;
 
+  const videoBtn = videoUrl
+    ? `<a class="btn btn--video btn--sm" href="${escapeHtml(videoUrl)}" target="_blank" rel="noreferrer noopener">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+        Watch Video
+       </a>`
+    : "";
+
   return `
     <article class="card" data-solution-id="${escapeHtml(solution.id)}">
       <!-- Category color bar -->
@@ -194,6 +202,7 @@ function cardTemplate(solution) {
           ${demoBtn}
           ${blueprintBtn}
           ${githubBtn}
+          ${videoBtn}
         </div>
       </div>
     </article>
@@ -229,9 +238,8 @@ function buildFilterTabs(solutions) {
 }
 
 /* ── Matching ─────────────────────────────────────── */
-function matchesSolution(solution, query, category, ossOnly) {
+function matchesSolution(solution, query, category) {
   if (category !== "all" && String(solution.category || "") !== category) return false;
-  if (ossOnly && !solution.openSourceFirst) return false;
   if (!query) return true;
 
   const haystack = [
@@ -253,9 +261,8 @@ function render(solutions) {
 
   const query    = normalize($("search").value);
   const category = activeCategory;
-  const ossOnly  = $("opensourceOnly").checked;
 
-  const filtered = solutions.filter(s => matchesSolution(s, query, category, ossOnly));
+  const filtered = solutions.filter(s => matchesSolution(s, query, category));
   grid.innerHTML  = filtered.map(cardTemplate).join("");
   empty.hidden    = filtered.length !== 0;
 
@@ -423,7 +430,6 @@ function main() {
 
   const rerender = () => render(solutions);
   $("search").addEventListener("input", rerender);
-  $("opensourceOnly").addEventListener("change", rerender);
   $("filterTabs").addEventListener("click", () => render(solutions));
 
   $("solutionsGrid").addEventListener("click", (e) => {

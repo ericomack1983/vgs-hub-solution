@@ -161,6 +161,16 @@ img, svg { display: block; }
   opacity: 0.6; pointer-events: none;
 }
 
+.btn--video {
+  background: #ff0000; color: #fff;
+  border-color: #ff0000;
+}
+.btn--video:hover {
+  background: #cc0000; border-color: #cc0000;
+  text-decoration: none; color: #fff;
+  box-shadow: 0 4px 12px rgba(255,0,0,0.3);
+}
+
 .btn--sm  { padding: 7px 14px; font-size: 12px; }
 .btn--lg  { padding: 14px 30px; font-size: 15px; }
 
@@ -178,12 +188,7 @@ img, svg { display: block; }
   justify-content: space-between; height: 100%;
 }
 .nav__brand { display: flex; align-items: center; gap: 14px; }
-.nav__logo-box {
-  background: var(--visa-blue); color: #fff;
-  font-size: 18px; font-weight: 900; letter-spacing: 0.08em;
-  padding: 5px 11px; border-radius: var(--r-xs); line-height: 1;
-  font-family: var(--font);
-}
+/* nav uses inline SVG wordmark from nova-styles */
 .nav__divider {
   width: 1px; height: 26px; background: var(--border-medium);
 }
@@ -354,18 +359,7 @@ img, svg { display: block; }
   box-shadow: 0 2px 8px rgba(20, 52, 203, 0.25);
 }
 
-.filter-oss {
-  display: flex; align-items: center; gap: 8px;
-  flex-shrink: 0; font-size: 12px; font-weight: 700;
-  color: var(--text-secondary); cursor: pointer;
-  padding: 7px 14px; border-radius: var(--r-full);
-  border: 1.5px solid var(--border);
-  background: var(--surface-0); transition: all 0.15s;
-}
-.filter-oss:hover { border-color: var(--visa-blue); color: var(--visa-blue); }
-.filter-oss input {
-  accent-color: var(--visa-blue); width: 14px; height: 14px; cursor: pointer;
-}
+/* OSS First toggle removed */
 
 .results-meta {
   font-size: 12px; color: var(--text-muted);
@@ -610,11 +604,7 @@ img, svg { display: block; }
   justify-content: space-between; gap: 24px;
 }
 .footer__brand { display: flex; align-items: center; gap: 10px; }
-.footer__logo-box {
-  background: rgba(255, 255, 255, 0.15); color: #fff;
-  font-size: 14px; font-weight: 900; letter-spacing: 0.1em;
-  padding: 4px 9px; border-radius: var(--r-xs); line-height: 1;
-}
+/* footer uses inline SVG wordmark */
 .footer__label { font-size: 12px; color: rgba(255, 255, 255, 0.45); font-weight: 500; }
 .footer__credit {
   font-size: 11px; color: rgba(255, 255, 255, 0.28);
