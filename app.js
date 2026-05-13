@@ -80,6 +80,8 @@ function cardTemplate(solution) {
   const statusIdx   = getStatusIndex(solution);
   const status      = STATUS_MAP[statusIdx] || STATUS_MAP[1];
   const features    = (Array.isArray(solution.features) ? solution.features : []).slice(0, 3);
+  const isDisabled   = Boolean(solution.disabled);
+  const disabledLabel = solution.disabledLabel || "Paused";
   const tryUrl      = solution.tryUrl && solution.tryUrl !== "#" ? solution.tryUrl : null;
   const githubUrl   = solution.githubUrl && solution.githubUrl !== "#" ? solution.githubUrl : null;
   const blueprintUrl = getBlueprintUrl(solution);
@@ -147,9 +149,6 @@ function cardTemplate(solution) {
         Watch Video
        </button>`
     : "";
-
-  const isDisabled = Boolean(solution.disabled);
-  const disabledLabel = solution.disabledLabel || "Coming Soon";
 
   return `
     <article class="card${isDisabled ? " card--disabled" : ""}" data-solution-id="${escapeHtml(solution.id)}">
