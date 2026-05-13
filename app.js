@@ -1,5 +1,9 @@
 const SUPPORT_EMAIL = "pilots@yourcompany.com";
 
+/* ── State ────────────────────────────────────────── */
+let activeCategory = "all";
+
+/* ── Helpers ──────────────────────────────────────── */
 function $(id) {
   const el = document.getElementById(id);
   if (!el) throw new Error(`Missing element: #${id}`);
@@ -7,11 +11,9 @@ function $(id) {
 }
 
 function readSolutions() {
-  const node = $("solutionsData");
   try {
-    const data = JSON.parse(node.textContent || "[]");
-    if (!Array.isArray(data)) return [];
-    return data;
+    const data = JSON.parse($("solutionsData").textContent || "[]");
+    return Array.isArray(data) ? data : [];
   } catch {
     return [];
   }
@@ -30,229 +32,206 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
+function normalize(s) {
+  return String(s || "").trim().toLowerCase();
+}
+
+/* ── Category Color Map ───────────────────────────── */
+const CATEGORY_COLORS = {
+  "Infrastructure":           { bar: "#1434cb", badge: "#eef0fc", text: "#1434cb" },
+  "DISBURSEMENT":             { bar: "#2C6849", badge: "#e8f5ee", text: "#2C6849" },
+  "Marketplace":              { bar: "#875903", badge: "#fef3d0", text: "#875903" },
+  "PAYOUT INFRASTRUCTURE":    { bar: "#005e8a", badge: "#e0f3fb", text: "#005e8a" },
+  "DISBURSEMENT & ISSUANCE":  { bar: "#0088c7", badge: "#dff0f9", text: "#0088c7" },
+};
+
+function getCategoryColor(category) {
+  return CATEGORY_COLORS[category] || { bar: "#1434cb", badge: "#eef0fc", text: "#1434cb" };
+}
+
+/* ── Status ───────────────────────────────────────── */
+const STATUS_MAP = {
+  0: { label: "Initiated",      fill: "0%"  },
+  1: { label: "Under Contract", fill: "25%" },
+  2: { label: "POC Ready",      fill: "50%" },
+  3: { label: "Pilot Running",  fill: "75%" },
+  4: { label: "In Production",  fill: "100%" },
+};
+
+function getStatusIndex(solution) {
+  if (solution.statusIndex !== undefined) return solution.statusIndex;
+  if (solution.isOss)         return 4;
+  if (solution.pilotRunning)  return 3;
+  if (solution.mvpReady)      return 2;
+  return 1;
+}
+
+/* ── Blueprint URL ────────────────────────────────── */
+function getBlueprintUrl(solution) {
+  if (!solution.masterDeckReady) return null;
+  if (solution.id === "dps-prosperidad") return "https://dps-indol.vercel.app/";
+  if (solution.repoUrl && solution.repoUrl !== "#") return solution.repoUrl;
+  return null;
+}
+
+/* ── Card Template ────────────────────────────────── */
 function cardTemplate(solution) {
-  const isOss = Boolean(solution.openSourceFirst);
-  const repo = solution.repoUrl || "";
-  const tryUrl = solution.tryUrl || repo;
-  const features = Array.isArray(solution.features) ? solution.features : [];
+  const color       = getCategoryColor(solution.category || "");
+  const statusIdx   = getStatusIndex(solution);
+  const status      = STATUS_MAP[statusIdx] || STATUS_MAP[1];
+  const features    = (Array.isArray(solution.features) ? solution.features : []).slice(0, 3);
+  const tryUrl      = solution.tryUrl && solution.tryUrl !== "#" ? solution.tryUrl : null;
+  const githubUrl   = solution.githubUrl && solution.githubUrl !== "#" ? solution.githubUrl : null;
+  const blueprintUrl = getBlueprintUrl(solution);
 
-  const isMvpReady = solution.mvpReady !== false;
-  const isGithubReady = solution.githubReady !== false;
-  const isMasterDeckReady = solution.masterDeckReady === true;
-  const isPilotRunning = solution.pilotRunning === true;
+  /* ── Badges ── */
+  const badgesHtml = [
+    solution.isOss         && `<span class="badge badge--oss">OSS First</span>`,
+    solution.mvpReady      && `<span class="badge badge--poc">POC Ready</span>`,
+    solution.pilotRunning  && `<span class="badge badge--pilot">Pilot Running</span>`,
+    solution.githubReady   && `<span class="badge badge--github">GitHub</span>`,
+    solution.masterDeckReady && `<span class="badge badge--blueprint">Blueprint</span>`,
+  ].filter(Boolean).join("");
 
-  const badges = `
-    <div style="display: flex; gap: 8px; flex-direction: row; align-items: center; justify-content: flex-end; text-align: left;">
-      ${isOss ? `<span class="badge badge--oss" style="background: rgba(0, 102, 204, 0.1); color: var(--accent-blue);" title="OSS-First">OSS-<br>FIRST</span>` : ""}
-      ${isMvpReady ? `<span class="badge" style="background: rgba(247, 148, 29, 0.15); color: #c2410c;" title="POC-Ready">POC-<br>READY</span>` : ""}
-      ${isPilotRunning ? `<span class="badge" style="background: rgba(52, 199, 89, 0.15); color: #248a3d;" title="Pilot-Running">PILOT-<br>RUNNING</span>` : ""}
-      ${isGithubReady ? `<span class="badge" style="background: rgba(29, 29, 31, 0.08); color: #1d1d1f;" title="Github-Ready">GITHUB-<br>READY</span>` : ""}
-      ${isMasterDeckReady ? `<span class="badge" style="background: rgba(88, 86, 214, 0.1); color: #5856d6;" title="Solution Blueprint Ready">SOLUTION-<br>BLUEPRINT</span>` : ""}
-    </div>
-  `;
+  /* ── Partners ── */
+  let partnersHtml = "";
+  if (solution.id === "aavance-ngo") {
+    partnersHtml = `
+      <div class="card__partners">
+        <span class="card__partners-label">Partner</span>
+        <svg width="24" height="24" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <path d="M15 85C25 55 50 40 85 45" stroke="#2582c1" stroke-width="14" stroke-linecap="round"/>
+          <path d="M30 95C45 65 75 50 95 60" stroke="#004b87" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="28" cy="78" r="9" fill="#c1272d"/>
+        </svg>
+        <span style="font-weight:800;font-size:20px;color:#0066b3;letter-spacing:-0.02em;font-family:var(--font)">AAvance</span>
+      </div>`;
+  } else if (solution.id === "kyc-kyb") {
+    partnersHtml = `
+      <div class="card__partners">
+        <span class="card__partners-label">Partners</span>
+        <img src="./assets/images/valid-logo.png" alt="Valid" style="height:32px;width:auto;object-fit:contain;">
+        <img src="./assets/images/hst-logo.png" alt="HST" style="height:22px;width:auto;object-fit:contain;">
+      </div>`;
+  } else if (solution.id === "dps-prosperidad") {
+    partnersHtml = `
+      <div class="card__partners">
+        <span class="card__partners-label">Partner</span>
+        <svg width="24" height="24" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <rect width="100" height="33" fill="#FCD116"/>
+          <rect y="33" width="100" height="33" fill="#003893"/>
+          <rect y="66" width="100" height="34" fill="#CE1126"/>
+        </svg>
+        <span style="font-weight:800;font-size:15px;color:#003893;font-family:var(--font)">Prosperidad Social</span>
+      </div>`;
+  }
+
+  /* ── CTA Buttons ── */
+  const demoBtn = tryUrl
+    ? `<a class="btn btn--primary btn--sm" href="${escapeHtml(tryUrl)}" target="_blank" rel="noreferrer noopener">▶ Try Demo</a>`
+    : `<span class="btn btn--muted btn--sm" aria-disabled="true">▶ Try Demo</span>`;
+
+  const blueprintBtn = blueprintUrl
+    ? `<a class="btn btn--ghost btn--sm" href="${escapeHtml(blueprintUrl)}" target="_blank" rel="noreferrer">Blueprint</a>`
+    : `<span class="btn btn--muted btn--sm" aria-disabled="true">Blueprint</span>`;
+
+  const githubBtn = githubUrl
+    ? `<a class="btn btn--dark btn--sm" href="${escapeHtml(githubUrl)}" target="_blank" rel="noreferrer">GitHub</a>`
+    : `<button class="btn btn--dark btn--sm" type="button" data-action="pilot">GitHub</button>`;
 
   return `
-    <article class="card" data-solution-id="${escapeHtml(solution.id)}" style="position: relative; overflow: hidden;">
-      ${solution.hackathonLabel ? `<div style="position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #5856d6, #7c3aed); color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 0 var(--radius-lg) 0 12px;">${escapeHtml(solution.hackathonLabel)}</div>` : ""}
-      <div class="card__top">
-        <div>
-          <h3 class="card__name">${escapeHtml(solution.name)}</h3>
-          <div class="badge" title="Category">${escapeHtml(solution.category || "General")}</div>
+    <article class="card" data-solution-id="${escapeHtml(solution.id)}">
+      <!-- Category color bar -->
+      <div class="card__color-bar" style="background:${color.bar}"></div>
+
+      ${solution.hackathonLabel
+        ? `<div class="card__ribbon">${escapeHtml(solution.hackathonLabel)}</div>`
+        : ""}
+
+      <div class="card__body">
+        <!-- Top row: category + badges -->
+        <div class="card__top-row">
+          <span class="card__category"
+            style="background:${color.badge};color:${color.text}">
+            ${escapeHtml(solution.category || "General")}
+          </span>
+          <div class="card__badges-top">${badgesHtml}</div>
         </div>
-        ${badges}
-      </div>
 
-      ${(() => {
-      let activeIndex = 0;
-      if (solution.statusIndex !== undefined) activeIndex = solution.statusIndex;
-      else if (solution.isOss) activeIndex = 4;
-      else if (solution.pilotRunning) activeIndex = 3;
-      else if (solution.mvpReady) activeIndex = 2;
+        <!-- Name -->
+        <h3 class="card__name">${escapeHtml(solution.name)}</h3>
 
-      const steps = ['Initiated', 'Contract', 'Implementation', 'Pilot', 'Production'];
-      const percentage = (activeIndex / (steps.length - 1)) * 100;
+        <!-- Summary -->
+        <p class="card__summary">${escapeHtml(solution.summary || "")}</p>
 
-      return `
-        <div style="margin: 16px 0 20px; padding: 16px 0 110px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); position: relative;">
-          <!-- Overall Status Label -->
-          <div style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary);">Overall Status</div>
-          <div style="display: flex; justify-content: space-between; position: relative; padding: 0 24px; margin-top: 24px;">
-            <!-- Lines Wrapper -->
-            <div style="position: absolute; top: 4px; left: 29px; right: 29px; height: 2px; z-index: 1;">
-              <!-- Background Line -->
-              <div style="width: 100%; height: 100%; background: #e5e5ea;"></div>
-              <!-- Animated Fill Line -->
-              <div style="position: absolute; top: 0; left: 0; height: 100%; background: var(--accent-blue); width: 0; animation: fillTimeline 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.2s;" data-target-width="${percentage}%">
-                <style>
-                  @keyframes fillTimeline {
-                    to { width: var(--target-width); }
-                  }
-                </style>
-              </div>
-            </div>
-            
-            ${steps.map((step, index) => `
-              <div style="display: flex; flex-direction: column; align-items: center; z-index: 3; position: relative;">
-                <div style="width: 10px; height: 10px; border-radius: 50%; background: ${index <= activeIndex ? 'var(--accent-blue)' : '#e5e5ea'}; border: 2px solid var(--bg); transition: background 0.3s 1s; box-shadow: ${index === activeIndex ? '0 0 0 3px rgba(0, 102, 204, 0.2)' : 'none'}; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: ${0.2 + (index * 0.1)}s; opacity: 0; transform: scale(0.5);"></div>
-                <div style="position: absolute; top: 16px; left: 50%; width: 0; overflow: visible;">
-                  <br><br><br>
-                  <span style="display: block; font-size: 10px; font-weight: 600; color: ${index <= activeIndex ? 'var(--text-primary)' : 'var(--text-tertiary)'}; text-transform: uppercase; letter-spacing: 0.06em; animation: fadeIn 0.4s ease forwards; animation-delay: ${0.4 + (index * 0.1)}s; opacity: 0; transform: rotate(-40deg) translate(-10px, 2px); transform-origin: top left; white-space: nowrap;">${step}</span>
-                </div>
-              </div>
-            `).join('')}
-            
-            <style>
-              @keyframes popIn {
-                to { opacity: 1; transform: scale(1); }
-              }
-              @keyframes fadeIn {
-                to { opacity: 1; }
-              }
-            </style>
-          </div>
-        </div>
-        `;
-    })()}
-
-      <p class="card__summary">${escapeHtml(solution.summary || "")}</p>
-
-      <div>
-        <ul class="card__features">
-          ${features.map((f) => `<li>${escapeHtml(f)}</li>`).join("")}
+        <!-- Features -->
+        <ul class="card__features" aria-label="Key features">
+          ${features.map(f => `
+            <li>
+              <span class="card__feature-dot" style="background:${color.bar}" aria-hidden="true"></span>
+              <span>${escapeHtml(f)}</span>
+            </li>`).join("")}
         </ul>
-        <p class="card__usecase"><strong>Use case:</strong> ${escapeHtml(solution.useCase || "")}</p>
-        
-        ${solution.id === 'aavance-ngo' ? `
-        <div class="card__partners" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
-          <span style="font-size: 13px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em;">Partner</span>
-          
-          <div title="AAvance" style="display: flex; align-items: center; gap: 8px;">
-            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0; transform: translateY(2px);">
-              <path d="M15 85C25 55 50 40 85 45" stroke="#2582c1" stroke-width="14" stroke-linecap="round"/>
-              <path d="M30 95C45 65 75 50 95 60" stroke="#004b87" stroke-width="14" stroke-linecap="round"/>
-              <circle cx="28" cy="78" r="9" fill="#c1272d"/>
-            </svg>
-            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 26px; color: #0066b3; letter-spacing: -0.02em;">AAvance</span>
-          </div>
-        </div>
-        ` : solution.id === 'kyc-kyb' ? `
-        <div class="card__partners" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
-          <span style="font-size: 13px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em;">Partners</span>
-          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 24px;">
-            <img src="./assets/images/valid-logo.png" alt="Valid Logo" style="height: 38px; width: auto; object-fit: contain; transform: translateY(-1px);">
-            <img src="./assets/images/hst-logo.png" alt="HST Logo" style="height: 26px; width: auto; object-fit: contain;">
-          </div>
-        </div>
-        ` : solution.id === 'dps-prosperidad' ? `
-        <div class="card__partners" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
-          <span style="font-size: 13px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em;">Partner</span>
-          <div title="Prosperidad Social – Gobierno de Colombia" style="display: flex; align-items: center; gap: 10px;">
-            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
-              <rect width="100" height="33" fill="#FCD116"/>
-              <rect y="33" width="100" height="33" fill="#003893"/>
-              <rect y="66" width="100" height="34" fill="#CE1126"/>
-            </svg>
-            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 18px; color: #003893; letter-spacing: -0.02em;">Prosperidad Social</span>
-          </div>
-        </div>
-        ` : ''}
-      </div>
 
-      <div class="card__bottom">
-        <div class="card__links" style="display: flex; align-items: center; gap: 16px;">
-          ${solution.id === 'aavance-ngo' ? `
-          <span style="color: var(--text-tertiary); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal; cursor: not-allowed; opacity: 0.5;">Solution Blueprint</span>
-          <span style="color: var(--text-tertiary); border: 2px solid #e5e5ea; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px; cursor: not-allowed; opacity: 0.5; background: #f5f5f7;">MVP</span>
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <span style="border-radius: 9999px; padding: 10px 24px; background-color: #d2d2d7; color: #fff; font-weight: 600; font-size: 16px; border: none; cursor: not-allowed; opacity: 0.7;">Github</span>
-          ` : solution.id === 'kyc-kyb' ? `
-          <a class="button button--chip button--ghost" href="${escapeHtml(repo)}" target="_blank" rel="noreferrer" style="border: none; color: var(--accent-blue); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal;">Solution Blueprint</a>
-          <span style="color: var(--text-tertiary); border: 2px solid #e5e5ea; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px; cursor: not-allowed; opacity: 0.5; background: #f5f5f7;">MVP</span>
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <span style="border-radius: 9999px; padding: 10px 24px; background-color: #d2d2d7; color: #fff; font-weight: 600; font-size: 16px; border: none; cursor: not-allowed; opacity: 0.7;">Github</span>
-          ` : solution.id === 'panama-canal-project' ? `
-          <span style="color: var(--text-tertiary); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal; cursor: not-allowed; opacity: 0.5;">Solution Blueprint</span>
-          <a
-            class="button button--chip button--ghost"
-            href="${escapeHtml(tryUrl)}"
-            target="_blank"
-            rel="noreferrer noopener"
-            style="color: var(--text-primary); border: 2px solid #d2d2d7; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px;"
-            >MVP</a
-          >
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          ${solution.githubUrl ?
-        `<a class="button button--primary" href="${escapeHtml(solution.githubUrl)}" target="_blank" rel="noreferrer" style="border-radius: 9999px; padding: 10px 24px; background-color: #1d1d1f; color: #fff; font-weight: 600; font-size: 16px; border: none; text-decoration: none;">Github</a>` :
-        `<button class="button button--primary" type="button" data-action="pilot" style="border-radius: 9999px; padding: 10px 24px; background-color: #1d1d1f; color: #fff; font-weight: 600; font-size: 16px; border: none;">Github</button>`
-      }
-          ` : solution.id === 'underwriting-rules' ? `
-          <span style="color: var(--text-tertiary); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal; cursor: not-allowed; opacity: 0.5;">Solution Blueprint</span>
-          <a
-            class="button button--chip button--ghost"
-            href="${escapeHtml(tryUrl)}"
-            target="_blank"
-            rel="noreferrer noopener"
-            style="color: var(--text-primary); border: 2px solid #d2d2d7; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px;"
-            >MVP</a
-          >
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <span style="border-radius: 9999px; padding: 10px 24px; background-color: #d2d2d7; color: #fff; font-weight: 600; font-size: 16px; border: none; cursor: not-allowed; opacity: 0.7;">Github</span>
-          ` : solution.id === 'dps-prosperidad' ? `
-          <a class="button button--chip button--ghost" href="https://dps-indol.vercel.app/" target="_blank" rel="noreferrer" style="border: none; color: var(--accent-blue); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal;">Solution Blueprint</a>
-          <span style="color: var(--text-tertiary); border: 2px solid #e5e5ea; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px; cursor: not-allowed; opacity: 0.5; background: #f5f5f7;">MVP</span>
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <span style="border-radius: 9999px; padding: 10px 24px; background-color: #d2d2d7; color: #fff; font-weight: 600; font-size: 16px; border: none; cursor: not-allowed; opacity: 0.7;">Github</span>
-          ` : solution.id === 'student-beca-cr' ? `
-          <span style="color: var(--text-tertiary); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal; cursor: not-allowed; opacity: 0.5;">Solution Blueprint</span>
-          <a class="button button--chip button--ghost" href="${escapeHtml(tryUrl)}" target="_blank" rel="noreferrer noopener" style="color: var(--text-primary); border: 2px solid #d2d2d7; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px;">MVP</a>
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <a class="button button--primary" href="${escapeHtml(solution.githubUrl)}" target="_blank" rel="noreferrer" style="border-radius: 9999px; padding: 10px 24px; background-color: #1d1d1f; color: #fff; font-weight: 600; font-size: 16px; border: none; text-decoration: none;">Github</a>
-          ` : solution.id === 'mtt-panama' ? `
-          <span style="color: var(--text-tertiary); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal; cursor: not-allowed; opacity: 0.5;">Solution Blueprint</span>
-          <a class="button button--chip button--ghost" href="${escapeHtml(tryUrl)}" target="_blank" rel="noreferrer noopener" style="color: var(--text-primary); border: 2px solid #d2d2d7; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px;">MVP</a>
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          <span style="border-radius: 9999px; padding: 10px 24px; background-color: #d2d2d7; color: #fff; font-weight: 600; font-size: 16px; border: none; cursor: not-allowed; opacity: 0.7;">Github</span>
-          ` : `
-          <a class="button button--chip button--ghost" href="${escapeHtml(repo)}" target="_blank" rel="noreferrer" style="border: none; color: var(--accent-blue); padding: 0; font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left; max-width: 80px; white-space: normal;">Solution Blueprint</a>
-          <a
-            class="button button--chip button--ghost"
-            href="${escapeHtml(tryUrl)}"
-            target="_blank"
-            rel="noreferrer noopener"
-            style="color: var(--text-primary); border: 2px solid #d2d2d7; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 16px;"
-            >MVP</a
-          >
-          <div style="width: 1px; height: 28px; background-color: #e5e5ea; margin: 0;"></div>
-          ${solution.githubUrl ?
-      `<a class="button button--primary" href="${escapeHtml(solution.githubUrl)}" target="_blank" rel="noreferrer" style="border-radius: 9999px; padding: 10px 24px; background-color: #1d1d1f; color: #fff; font-weight: 600; font-size: 16px; border: none; text-decoration: none;">Github</a>` :
-      `<button class="button button--primary" type="button" data-action="pilot" style="border-radius: 9999px; padding: 10px 24px; background-color: #1d1d1f; color: #fff; font-weight: 600; font-size: 16px; border: none;">Github</button>`
-    }
-          `}
+        <!-- Use case -->
+        <p class="card__usecase">
+          <strong>Use case:</strong> ${escapeHtml(solution.useCase || "")}
+        </p>
+
+        ${partnersHtml}
+
+        <!-- Status bar -->
+        <div class="card__status" aria-label="Implementation status: ${status.label}">
+          <div class="card__status-track">
+            <div class="card__status-fill" data-fill="${status.fill}"
+              style="background:${color.bar}"></div>
+          </div>
+          <span class="card__status-label">${status.label}</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="card__footer">
+          ${demoBtn}
+          ${blueprintBtn}
+          ${githubBtn}
         </div>
       </div>
     </article>
   `;
 }
 
-function buildCategoryOptions(solutions) {
-  const select = $("category");
-  const categories = uniq(solutions.map((s) => s.category || "General"));
-  for (const c of categories) {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    select.appendChild(opt);
+/* ── Filter Tabs ──────────────────────────────────── */
+function buildFilterTabs(solutions) {
+  const tabsEl   = $("filterTabs");
+  const categories = uniq(solutions.map(s => s.category || "General"));
+
+  for (const cat of categories) {
+    const btn = document.createElement("button");
+    btn.className = "filter-tab";
+    btn.dataset.category = cat;
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", "false");
+    btn.textContent = cat;
+    tabsEl.appendChild(btn);
   }
+
+  tabsEl.addEventListener("click", (e) => {
+    const tab = e.target.closest(".filter-tab");
+    if (!tab) return;
+    tabsEl.querySelectorAll(".filter-tab").forEach(t => {
+      t.classList.remove("filter-tab--active");
+      t.setAttribute("aria-selected", "false");
+    });
+    tab.classList.add("filter-tab--active");
+    tab.setAttribute("aria-selected", "true");
+    activeCategory = tab.dataset.category;
+  });
 }
 
-function normalize(s) {
-  return String(s || "").trim().toLowerCase();
-}
-
+/* ── Matching ─────────────────────────────────────── */
 function matchesSolution(solution, query, category, ossOnly) {
   if (category !== "all" && String(solution.category || "") !== category) return false;
   if (ossOnly && !solution.openSourceFirst) return false;
-
   if (!query) return true;
 
   const haystack = [
@@ -260,33 +239,45 @@ function matchesSolution(solution, query, category, ossOnly) {
     solution.category,
     solution.summary,
     solution.useCase,
-    ...(Array.isArray(solution.features) ? solution.features : [])
-  ]
-    .map(normalize)
-    .join(" · ");
+    ...(Array.isArray(solution.features) ? solution.features : []),
+  ].map(normalize).join(" · ");
 
   return haystack.includes(query);
 }
 
+/* ── Render ───────────────────────────────────────── */
 function render(solutions) {
-  const grid = $("solutionsGrid");
-  const empty = $("emptyState");
+  const grid   = $("solutionsGrid");
+  const empty  = $("emptyState");
+  const meta   = $("resultsMeta");
 
-  const query = normalize($("search").value);
-  const category = $("category").value;
-  const ossOnly = $("opensourceOnly").checked;
+  const query    = normalize($("search").value);
+  const category = activeCategory;
+  const ossOnly  = $("opensourceOnly").checked;
 
-  const filtered = solutions.filter((s) => matchesSolution(s, query, category, ossOnly));
-  grid.innerHTML = filtered.map(cardTemplate).join("");
+  const filtered = solutions.filter(s => matchesSolution(s, query, category, ossOnly));
+  grid.innerHTML  = filtered.map(cardTemplate).join("");
+  empty.hidden    = filtered.length !== 0;
 
-  empty.hidden = filtered.length !== 0;
+  meta.textContent = filtered.length === solutions.length
+    ? `${solutions.length} solutions`
+    : `${filtered.length} of ${solutions.length} solutions`;
+
+  /* Animate status fill bars after render */
+  requestAnimationFrame(() => {
+    grid.querySelectorAll(".card__status-fill").forEach(el => {
+      const target = el.dataset.fill || "0%";
+      el.style.width = target;
+    });
+  });
 }
 
+/* ── Email Draft ──────────────────────────────────── */
 function buildMailto(payload) {
-  const subject = `Pilot interest: ${payload.solution || "Turnkey solution"}`;
+  const subject = `Demo request: ${payload.solution || "Turnkey solution"}`;
   const body = [
     `Solution: ${payload.solution || ""}`,
-    `GitHub: ${payload.repo || ""}`,
+    `Reference: ${payload.repo || ""}`,
     "",
     `Company: ${payload.company || ""}`,
     `Name: ${payload.name || ""}`,
@@ -295,22 +286,18 @@ function buildMailto(payload) {
     `NDA preferred: ${payload.nda ? "Yes" : "No"}`,
     "",
     "Goals / context:",
-    payload.notes || ""
+    payload.notes || "",
   ].join("\n");
 
-  const params = new URLSearchParams({
-    subject,
-    body
-  });
-
+  const params = new URLSearchParams({ subject, body });
   return `mailto:${encodeURIComponent(SUPPORT_EMAIL)}?${params.toString()}`;
 }
 
 function buildDraft(payload) {
-  const subject = `Pilot interest: ${payload.solution || "Turnkey solution"}`;
+  const subject = `Demo request: ${payload.solution || "Turnkey solution"}`;
   const body = [
     `Solution: ${payload.solution || ""}`,
-    `GitHub: ${payload.repo || ""}`,
+    `Reference: ${payload.repo || ""}`,
     "",
     `Company: ${payload.company || ""}`,
     `Name: ${payload.name || ""}`,
@@ -319,9 +306,8 @@ function buildDraft(payload) {
     `NDA preferred: ${payload.nda ? "Yes" : "No"}`,
     "",
     "Goals / context:",
-    payload.notes || ""
+    payload.notes || "",
   ].join("\n");
-
   return { to: SUPPORT_EMAIL, subject, body };
 }
 
@@ -329,49 +315,48 @@ function payloadFromForm(form) {
   const fd = new FormData(form);
   return {
     solution: String(fd.get("solution") || ""),
-    repo: String(fd.get("repo") || ""),
-    company: String(fd.get("company") || ""),
-    name: String(fd.get("name") || ""),
-    email: String(fd.get("email") || ""),
+    repo:     String(fd.get("repo")     || ""),
+    company:  String(fd.get("company")  || ""),
+    name:     String(fd.get("name")     || ""),
+    email:    String(fd.get("email")    || ""),
     timeline: String(fd.get("timeline") || ""),
-    notes: String(fd.get("notes") || ""),
-    nda: Boolean(fd.get("nda"))
+    notes:    String(fd.get("notes")    || ""),
+    nda:      Boolean(fd.get("nda")),
   };
 }
 
 function copyRequest(payload) {
   const text = [
-    `Pilot interest — ${payload.solution}`,
-    `Repo: ${payload.repo}`,
+    `Demo request — ${payload.solution}`,
+    `Ref: ${payload.repo}`,
     `Company: ${payload.company}`,
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Timeline: ${payload.timeline}`,
     `NDA preferred: ${payload.nda ? "Yes" : "No"}`,
     "",
-    payload.notes
+    payload.notes,
   ].join("\n");
-
   return navigator.clipboard.writeText(text);
 }
 
+/* ── Modal ────────────────────────────────────────── */
 function openModalForSolution(solution) {
   const modal = $("pilotModal");
-  $("solution").value = solution?.name || "General pilot inquiry";
-  $("repo").value = solution?.repoUrl || "";
-  $("company").value = "";
-  $("name").value = "";
-  $("email").value = "";
-  $("timeline").value = "";
-  $("notes").value = "";
-  $("nda").checked = false;
-  $("draftTo").value = SUPPORT_EMAIL;
+  $("solution").value  = solution?.name || "General demo inquiry";
+  $("repo").value      = solution?.repoUrl || "";
+  $("company").value   = "";
+  $("name").value      = "";
+  $("email").value     = "";
+  $("timeline").value  = "";
+  $("notes").value     = "";
+  $("nda").checked     = false;
+  $("draftTo").value   = SUPPORT_EMAIL;
   $("draftSubject").value = "";
   $("draftBody").value = "";
   $("openEmail").setAttribute("href", "#");
   $("pilotHint").textContent =
     "Generate a draft, then copy/paste into your email client (no data is sent from this page).";
-
   modal.showModal();
   $("company").focus();
 }
@@ -382,25 +367,21 @@ function setupModalHandlers() {
 
   modal.addEventListener("click", (e) => {
     const rect = modal.getBoundingClientRect();
-    const isInDialog =
-      rect.top <= e.clientY &&
-      e.clientY <= rect.top + rect.height &&
-      rect.left <= e.clientX &&
-      e.clientX <= rect.left + rect.width;
-    if (!isInDialog) modal.close();
+    const inside =
+      rect.top    <= e.clientY && e.clientY <= rect.top    + rect.height &&
+      rect.left   <= e.clientX && e.clientX <= rect.left   + rect.width;
+    if (!inside) modal.close();
   });
 
   $("submitPilot").addEventListener("click", () => {
     const payload = payloadFromForm($("pilotForm"));
-    const draft = buildDraft(payload);
-    $("draftTo").value = draft.to;
+    const draft   = buildDraft(payload);
+    $("draftTo").value      = draft.to;
     $("draftSubject").value = draft.subject;
-    $("draftBody").value = draft.body;
-
-    const mailto = buildMailto(payload);
-    $("openEmail").setAttribute("href", mailto);
+    $("draftBody").value    = draft.body;
+    $("openEmail").setAttribute("href", buildMailto(payload));
     $("pilotHint").textContent =
-      "Draft generated. Copy/paste the body into your email, or use “Open email app” if your device is configured.";
+      "Draft generated. Copy/paste into your email, or use 'Open email app' if configured.";
   });
 
   $("copyPilot").addEventListener("click", async () => {
@@ -409,30 +390,35 @@ function setupModalHandlers() {
       await copyRequest(payload);
       $("pilotHint").textContent = "Copied to clipboard.";
     } catch {
-      $("pilotHint").textContent = "Copy failed in this browser. You can still submit to open an email draft.";
+      $("pilotHint").textContent = "Copy failed in this browser. Use 'Open email app' instead.";
     }
   });
 }
 
+/* ── Main ─────────────────────────────────────────── */
 function main() {
   const solutions = readSolutions();
-  buildCategoryOptions(solutions);
+
+  /* Update hero stat */
+  try { $("statTotal").textContent = solutions.length; } catch { /* ok */ }
+
+  buildFilterTabs(solutions);
 
   const rerender = () => render(solutions);
   $("search").addEventListener("input", rerender);
-  $("category").addEventListener("change", rerender);
   $("opensourceOnly").addEventListener("change", rerender);
+  $("filterTabs").addEventListener("click", () => render(solutions));
 
   $("solutionsGrid").addEventListener("click", (e) => {
     const btn = e.target.closest('[data-action="pilot"]');
     if (!btn) return;
     const card = btn.closest(".card");
-    const id = card?.getAttribute("data-solution-id");
-    const sol = solutions.find((s) => String(s.id) === String(id));
+    const id   = card?.getAttribute("data-solution-id");
+    const sol  = solutions.find(s => String(s.id) === String(id));
     openModalForSolution(sol);
   });
 
-  $("openPilot").addEventListener("click", () => openModalForSolution(null));
+  $("openPilot").addEventListener("click",  () => openModalForSolution(null));
   $("openPilot2").addEventListener("click", () => openModalForSolution(null));
 
   setupModalHandlers();

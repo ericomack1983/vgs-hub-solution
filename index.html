@@ -5,419 +5,308 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Client-facing hub for turnkey solutions: clear value, key features, use cases, and a pilot interest call-to-action." />
-  <title>Turnkey Solutions Hub</title>
+    content="VGS Solution Marketplace — Hands-on Visa Government Solutions for the sales team. Show clients real use cases, not slides." />
+  <title>VGS Solution Marketplace — Visa Government Solutions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <div class="brand" style="display: flex; align-items: center; gap: 12px;">
-        <div class="brand__text">
-          <div class="brand__name"></div>
-          <div class="brand__sub">Client-facing solutions catalog</div>
+  <!-- ── Navigation ── -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="nav__brand">
+        <div class="nav__logo-box">VISA</div>
+        <div class="nav__divider"></div>
+        <div class="nav__title-block">
+          <span class="nav__title">Government Solutions</span>
+          <span class="nav__subtitle">Solution Marketplace</span>
         </div>
-        <span
-          style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); background: rgba(0,0,0,0.03); padding: 4px 10px; border-radius: 9999px; border: 1px solid var(--border-light);">Created
-          and Developed by Erico Rodrigues ® - Visa Inc.</span>
       </div>
+      <nav class="nav__links" aria-label="Main navigation">
+        <span class="nav__credit">Built by Erico Rodrigues · Visa Inc.</span>
+        <a href="#solutions" class="nav__link">Solutions</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <button class="btn btn--primary btn--sm" id="openPilot">Request Demo</button>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
+
+    <!-- ── Hero ── -->
     <section class="hero">
       <div class="container hero__inner">
-        <div class="hero__copy">
-          <p class="eyebrow">
-            Built for Disbursement, Procurement, Data and Acceptance Government flows.
-          </p>
-          <h1>VGS Turnkey solutions that move from concept to pilot fast.</h1>
-          <p class="lede">
-            A curated portfolio of high-impact government
-            <span class="sleek-highlight">“Big Rock” solutions</span>.
-            Initiatives designed to validate value quickly before scaling — controlled pilots, not production
-            builds.
-            Explore the catalog below to determine which initiatives warrant sponsorship and funding for pilot
-            execution.
-          </p>
-
-          <p class="lede"> <span class="sleek-highlight"> Test. Measure. Decide. </p>
-
-
-          <div class="hero__cta">
-            <a class="button button--primary" href="#solutions">Explore solutions</a>
-            <button class="button button--ghost" id="openPilot">
-              I want to know more
-            </button>
-          </div>
-
-          <div class="trust">
-            <div class="trust__item">
-              <div class="trust__kpi">2–6 weeks</div>
-              <div class="trust__label">Typical pilot timeline</div>
-            </div>
-            <div class="trust__item">
-              <div class="trust__kpi">API-first</div>
-              <div class="trust__label">Fits existing stacks</div>
-            </div>
-            <div class="trust__item">
-              <div class="trust__kpi">Measurable</div>
-              <div class="trust__label">Clear success criteria</div>
-            </div>
-          </div>
+        <div class="hero__eyebrow">
+          <span class="hero__tag">Internal Sales Tool</span>
+          <span>VGS · Visa Government Solutions</span>
         </div>
 
-        <div class="hero__panel" aria-label="Highlights" style="width: 100%; max-width: 860px; margin: 0 auto;">
-          <div class="panel"
-            style="background: var(--bg); border: 1px solid var(--border-light); border-radius: 24px; padding: 48px; box-shadow: var(--shadow-sm);">
-            <h2
-              style="font-size: 26px; font-weight: 700; color: var(--text-primary); margin-bottom: 36px; letter-spacing: -0.01em; text-align: center;">
-              What clients get</h2>
+        <h1 class="hero__headline">
+          Show me,<br><em>don't tell me.</em>
+        </h1>
 
-            <ul class="panel__list">
-              <li>Ready-to-deploy reference implementation</li>
-              <li>Configurable workflows &amp; integrations</li>
-              <li>Audit-friendly logs &amp; reporting</li>
-              <li>Clear metrics to validate ROI</li>
-            </ul>
+        <p class="hero__sub">
+          A curated marketplace of live, hands-on solutions your team can demo
+          with clients — real Visa infrastructure, real government use cases,
+          real impact. No slides, no theory.
+        </p>
 
-            <div class="panel__note" style="margin-top: 16px; opacity: 0.5;">
-              Inspired by modern fintech UX patterns (dark surface, high contrast, card-first layout) similar to the
-              reference lending experience.
-            </div>
+        <div class="hero__search-wrap">
+          <svg class="hero__search-icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input id="search" type="search"
+            placeholder="Search solutions, categories, use cases…"
+            autocomplete="off" aria-label="Search solutions" />
+        </div>
+
+        <div class="hero__stats" aria-label="Marketplace stats">
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="statTotal">9</span>
+            <span class="hero__stat-label">Solutions</span>
+          </div>
+          <div class="hero__stat-sep" aria-hidden="true"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">5</span>
+            <span class="hero__stat-label">Countries</span>
+          </div>
+          <div class="hero__stat-sep" aria-hidden="true"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">1</span>
+            <span class="hero__stat-label">Active Pilot</span>
+          </div>
+          <div class="hero__stat-sep" aria-hidden="true"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">Live</span>
+            <span class="hero__stat-label">Demo Ready</span>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ── Catalog ── -->
     <section class="catalog" id="solutions">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Solutions</h2>
-            <p>
-              Filter by category and open the GitHub repo for code and docs.
-              Each card includes key features and a concrete use case.
-            </p>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" role="region" aria-label="Filter solutions">
+          <div class="filter-tabs" id="filterTabs" role="tablist">
+            <button class="filter-tab filter-tab--active" data-category="all" role="tab"
+              aria-selected="true">All</button>
           </div>
-
-          <div class="controls" role="region" aria-label="Solution filters">
-            <label class="control">
-              <span class="control__label">Search</span>
-              <input id="search" type="search" placeholder="e.g. origination, KYC, collections" autocomplete="off" />
-            </label>
-
-            <label class="control">
-              <span class="control__label">Category</span>
-              <select id="category">
-                <option value="all">All</option>
-              </select>
-            </label>
-
-            <label class="control control--toggle">
-              <input id="opensourceOnly" type="checkbox" />
-              <span>Open-source first</span>
-            </label>
-          </div>
+          <label class="filter-oss" title="Show open-source-first solutions">
+            <input id="opensourceOnly" type="checkbox" />
+            <span>OSS First</span>
+          </label>
         </div>
 
-        <div class="grid" id="solutionsGrid" aria-live="polite"></div>
+        <p class="results-meta" id="resultsMeta" aria-live="polite"></p>
 
-        <div class="empty" id="emptyState" hidden>
-          No solutions match your filters. Try a different search term or
-          reset category.
+        <!-- Solution Cards Grid -->
+        <div class="solutions-grid" id="solutionsGrid" aria-live="polite"></div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-state__icon">🔍</div>
+          <p>No solutions match your filters. Try a different search or reset the category.</p>
         </div>
+
       </div>
     </section>
 
-    <section class="pilot" id="pilot">
-      <div class="container pilot__inner">
-        <div>
-          <h2>Pilot with us</h2>
+    <!-- ── CTA Band ── -->
+    <section class="cta-band" id="pilot">
+      <div class="container cta-band__inner">
+        <div class="cta-band__copy">
+          <h2>Ready to run a live demo?</h2>
           <p>
-            Tell us what you want to test. We’ll propose a scoped pilot with
-            success criteria, timeline, and integration plan.
+            Tell us what you want to show. We'll prepare a scoped demo session
+            with real data, a clear client story, and a defined success outcome.
           </p>
         </div>
-        <button class="button button--primary" id="openPilot2">
-          Start a pilot request
+        <button class="btn btn--gold btn--lg" id="openPilot2">
+          Start a Demo Request
         </button>
       </div>
     </section>
 
+    <!-- ── FAQ ── -->
     <section class="faq" id="faq">
       <div class="container">
-        <h2>FAQ</h2>
+        <h2 class="faq__title">Frequently Asked Questions</h2>
         <div class="faq__grid">
+
           <details class="faq__item">
-            <summary>What is Portal Hub?</summary>
-            <p>Portal Hub is a centralized innovation platform where stakeholders can:</p>
-            <ul>
-              <li>Explore solution blueprints</li>
-              <li>Interact with clickable mock-ups</li>
-              <li>Simulate real-world use cases</li>
-              <li>Identify customer pain points before implementation</li>
-              <li>Validate assumptions during pre-sales</li>
-            </ul>
-            <p>It transforms static presentations into interactive solution discovery sessions.</p>
+            <summary>What is the VGS Solution Marketplace?</summary>
+            <div class="faq__content">
+              <p>The VGS Solution Marketplace is an internal innovation platform where the Visa Government Solutions sales team can:</p>
+              <ul>
+                <li>Explore live solution demos and blueprints</li>
+                <li>Interact with clickable mockups and MVPs</li>
+                <li>Simulate real-world government payment use cases</li>
+                <li>Identify client pain points before implementation</li>
+                <li>Validate assumptions during pre-sales engagements</li>
+              </ul>
+              <p>It transforms static presentations into interactive solution discovery sessions — turning pitches into proof.</p>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>Who is Portal Hub designed for?</summary>
-            <p>Portal Hub is built for:</p>
-            <ul>
-              <li>Enterprise clients</li>
-              <li>Government agencies</li>
-              <li>Product teams</li>
-              <li>Pre-sales engineers</li>
-              <li>Sales executives</li>
-              <li>UX and Solution Architects</li>
-            </ul>
-            <p>It is especially valuable for organizations evaluating complex platforms such as:</p>
-            <ul>
-              <li>Payment ecosystems</li>
-              <li>Public fund disbursement systems</li>
-              <li>Digital identity platforms</li>
-              <li>Marketplace infrastructure</li>
-              <li>AI-driven decision systems</li>
-            </ul>
+            <summary>Who is this marketplace designed for?</summary>
+            <div class="faq__content">
+              <p>Built for the VGS sales and solutions team, especially useful when engaging:</p>
+              <ul>
+                <li>Government agencies and ministries</li>
+                <li>Enterprise and fintech clients</li>
+                <li>Pre-sales engineers and solution architects</li>
+                <li>Sales executives and account managers</li>
+                <li>Product and UX teams validating concepts</li>
+              </ul>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>What problem does Portal Hub solve?</summary>
-            <p>Traditional pre-sales challenges include:</p>
-            <ul>
-              <li>Abstract architecture diagrams that clients struggle to visualize</li>
-              <li>Misaligned expectations between business and technology</li>
-              <li>Hidden pain points discovered too late</li>
-              <li>Long sales cycles due to unclear value</li>
-            </ul>
-            <p>Portal Hub solves this by enabling:</p>
-            <ul>
-              <li>✅ Real-time interaction</li>
-              <li>✅ Scenario-based testing</li>
-              <li>✅ Early pain-point discovery</li>
-              <li>✅ Faster executive alignment</li>
-              <li>✅ Clear value demonstration</li>
-            </ul>
+            <summary>What problem does this solve?</summary>
+            <div class="faq__content">
+              <p>Traditional pre-sales challenges include abstract diagrams clients struggle to visualize, misaligned expectations, and long sales cycles due to unclear value.</p>
+              <p>This marketplace solves that by enabling:</p>
+              <ul>
+                <li>Real-time interaction with working prototypes</li>
+                <li>Scenario-based testing and flow simulation</li>
+                <li>Early pain-point discovery with the client</li>
+                <li>Faster executive alignment and shorter cycles</li>
+                <li>A clear "Show me, don't tell me" narrative</li>
+              </ul>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>What is a Blueprint Design inside Portal Hub?</summary>
-            <p>A Blueprint is a structured visual representation of:</p>
-            <ul>
-              <li>System architecture</li>
-              <li>Business flows</li>
-              <li>API interactions</li>
-              <li>Data movement</li>
-              <li>Compliance checkpoints</li>
-              <li>Operational governance layers</li>
-            </ul>
-            <p>Blueprints help stakeholders understand:</p>
-            <ul>
-              <li>How components connect</li>
-              <li>Where friction may occur</li>
-              <li>What dependencies exist</li>
-              <li>How scalability and security are handled</li>
-            </ul>
-            <p>Think of it as the technical DNA of the solution.</p>
+            <summary>What does "POC Ready" mean on a card?</summary>
+            <div class="faq__content">
+              <p>A <strong>POC Ready</strong> solution has a working prototype or MVP that can be demonstrated live to a client. It means:</p>
+              <ul>
+                <li>The core flow is implemented and functional</li>
+                <li>A demo URL or working app is available</li>
+                <li>It's suitable for client-facing pre-sales sessions</li>
+              </ul>
+              <p>It is not a production build — it's a validated proof of concept ready for client validation and scoped pilots.</p>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>What are Mock-Ups in Portal Hub?</summary>
-            <p>Mock-ups are interactive UI simulations that allow users to:</p>
-            <ul>
-              <li>Navigate screens</li>
-              <li>Trigger workflows</li>
-              <li>Simulate onboarding</li>
-              <li>Test disbursement flows</li>
-              <li>Experience error handling</li>
-              <li>Interact with AI decision layers</li>
-            </ul>
-            <p>They are not just visuals — they are pain-detection tools.</p>
+            <summary>What is a Solution Blueprint?</summary>
+            <div class="faq__content">
+              <p>A Blueprint is a structured visual representation of the solution architecture, covering:</p>
+              <ul>
+                <li>System architecture and component interactions</li>
+                <li>Business flows and API touchpoints</li>
+                <li>Compliance checkpoints and governance layers</li>
+                <li>Data movement and integration patterns</li>
+              </ul>
+              <p>Think of it as the technical DNA of the solution — designed to align business and engineering stakeholders before a pilot begins.</p>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>How does Portal Hub detect customer pain points?</summary>
-            <p>Portal Hub captures insights through:</p>
-            <ul>
-              <li>Guided journey simulations</li>
-              <li>Behavioral feedback during testing</li>
-              <li>Workflow bottleneck identification</li>
-              <li>Manual feedback capture</li>
-              <li>Real-time discussion prompts</li>
-              <li>Pre-configured stress scenarios</li>
-            </ul>
-            <p>During pre-sales sessions, we observe:</p>
-            <ul>
-              <li>Where users hesitate</li>
-              <li>Where confusion occurs</li>
-              <li>Where compliance risks surface</li>
-              <li>Where operational complexity increases</li>
-            </ul>
-            <p>This converts subjective feedback into structured solution insights.</p>
+            <summary>How do I request a pilot or demo session?</summary>
+            <div class="faq__content">
+              <p>Click <strong>"Try Demo"</strong> on any solution card to access the live prototype, or click <strong>"Request Demo"</strong> in the navigation to submit a formal pilot request. You'll receive a scoped plan with success criteria, a timeline, and an integration overview.</p>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>How is this different from a demo environment?</summary>
-            <p>A traditional demo:</p>
-            <ul>
-              <li>Shows a finished product</li>
-              <li>Focuses on features</li>
-              <li>Is often static</li>
-            </ul>
-            <p>Portal Hub:</p>
-            <ul>
-              <li>Simulates future-state architecture</li>
-              <li>Tests assumptions before build</li>
-              <li>Co-creates with the customer</li>
-              <li>Allows modular configuration</li>
-              <li>Highlights risk before investment</li>
-            </ul>
-            <p>It's not a demo — it's a solution validation environment.</p>
+            <summary>How does this accelerate the sales cycle?</summary>
+            <div class="faq__content">
+              <p>The marketplace approach:</p>
+              <ul>
+                <li>Aligns business and technical stakeholders early</li>
+                <li>Reduces ambiguity in requirements</li>
+                <li>Surfaces client objections before formal RFP</li>
+                <li>Quantifies operational risk up front</li>
+                <li>Demonstrates value in 30 minutes, not 30 slides</li>
+              </ul>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>Can Portal Hub be customized per client?</summary>
-            <p>Yes. Portal Hub supports:</p>
-            <ul>
-              <li>Industry-specific flows (e.g., government, fintech, enterprise)</li>
-              <li>Regional compliance overlays</li>
-              <li>Custom branding</li>
-              <li>API simulation layers</li>
-              <li>AI-driven decision logic</li>
-              <li>Multi-stakeholder role simulation</li>
-            </ul>
-            <p>Each session can be tailored to the customer's business model and maturity level.</p>
+            <summary>Can solutions be customized per client?</summary>
+            <div class="faq__content">
+              <p>Yes. Each solution supports:</p>
+              <ul>
+                <li>Industry-specific flows (government, fintech, NGOs)</li>
+                <li>Regional compliance overlays</li>
+                <li>Custom branding and API simulation layers</li>
+                <li>AI-driven decision logic adaptations</li>
+                <li>Multi-stakeholder role simulation</li>
+              </ul>
+              <p>Sessions can be tailored to the client's business model and technical maturity level.</p>
+            </div>
           </details>
 
           <details class="faq__item">
             <summary>What types of use cases can be simulated?</summary>
-            <p>Examples include:</p>
-            <ul>
-              <li>Public fund disbursement programs</li>
-              <li>Merchant onboarding journeys</li>
-              <li>Digital identity verification</li>
-              <li>Cross-border payments</li>
-              <li>Procurement and petty cash automation</li>
-              <li>AI-based eligibility validation</li>
-              <li>Fraud monitoring overlays</li>
-              <li>Tokenized asset flows</li>
-            </ul>
+            <div class="faq__content">
+              <p>Examples include:</p>
+              <ul>
+                <li>Public fund disbursement and social transfer programs</li>
+                <li>Merchant and supplier onboarding journeys</li>
+                <li>Digital identity verification and KYC/KYB flows</li>
+                <li>Cross-border B2B payments and procurement</li>
+                <li>Tokenized asset flows and open-loop transit</li>
+                <li>AI-based eligibility validation and scoring</li>
+              </ul>
+            </div>
           </details>
 
           <details class="faq__item">
-            <summary>How does Portal Hub accelerate the sales cycle?</summary>
-            <p>Portal Hub:</p>
-            <ul>
-              <li>Aligns business and technical stakeholders early</li>
-              <li>Reduces ambiguity in requirements</li>
-              <li>Clarifies integration complexity</li>
-              <li>Surfaces objections before formal RFP</li>
-              <li>Quantifies operational risk</li>
-            </ul>
-            <p>Result:</p>
-            <ul>
-              <li>⚡ Shorter discovery phase</li>
-              <li>⚡ Higher conversion rates</li>
-              <li>⚡ Better-qualified opportunities</li>
-              <li>⚡ Reduced post-sale redesign</li>
-            </ul>
+            <summary>Is this environment secure?</summary>
+            <div class="faq__content">
+              <p>All demos use synthetic datasets with no real production data. The environment is configured with:</p>
+              <ul>
+                <li>Secure sandbox isolation</li>
+                <li>Controlled access roles</li>
+                <li>Compliance simulation (PCI, KYC, AML)</li>
+              </ul>
+              <p>It is built for safe, risk-free client exploration.</p>
+            </div>
           </details>
 
-          <details class="faq__item">
-            <summary>Is Portal Hub only for large enterprises?</summary>
-            <p>No. It supports:</p>
-            <ul>
-              <li>Startups validating architecture</li>
-              <li>Mid-market scaling operations</li>
-              <li>Governments modernizing legacy systems</li>
-              <li>Enterprises redesigning platform infrastructure</li>
-            </ul>
-            <p>The complexity can scale based on the customer's needs.</p>
-          </details>
-
-          <details class="faq__item">
-            <summary>How secure is the Portal Hub environment?</summary>
-            <p>Portal Hub mock-ups can be configured with:</p>
-            <ul>
-              <li>No real production data</li>
-              <li>Synthetic datasets</li>
-              <li>Secure sandbox isolation</li>
-              <li>Controlled access roles</li>
-              <li>Compliance simulation (PCI, KYC, AML, etc.)</li>
-            </ul>
-            <p>It is built for safe exploration without operational risk.</p>
-          </details>
-
-          <details class="faq__item">
-            <summary>Can AI be integrated into Portal Hub simulations?</summary>
-            <p>Yes. Portal Hub can simulate:</p>
-            <ul>
-              <li>Intent-driven decision engines</li>
-              <li>Eligibility scoring models</li>
-              <li>Risk-based routing</li>
-              <li>Automated procurement approvals</li>
-              <li>Smart disbursement validation</li>
-              <li>Conversational AI UX</li>
-            </ul>
-            <p>This allows clients to visualize AI-native workflows before committing to development.</p>
-          </details>
-
-          <details class="faq__item">
-            <summary>What happens after a Portal Hub session?</summary>
-            <p>After each session, the output includes:</p>
-            <ul>
-              <li>Identified pain points</li>
-              <li>Validated assumptions</li>
-              <li>Gap analysis</li>
-              <li>Recommended architecture adjustments</li>
-              <li>Prioritized solution roadmap</li>
-              <li>Executive-ready summary</li>
-            </ul>
-            <p>Portal Hub bridges pre-sales to delivery seamlessly.</p>
-          </details>
-
-          <details class="faq__item">
-            <summary>Why should organizations use Portal Hub?</summary>
-            <p>Because complex solutions fail when:</p>
-            <ul>
-              <li>They are misunderstood</li>
-              <li>They are oversold</li>
-              <li>They are under-validated</li>
-            </ul>
-            <p>Portal Hub ensures:</p>
-            <ul>
-              <li>Transparency</li>
-              <li>Alignment</li>
-              <li>Feasibility</li>
-              <li>Scalability</li>
-              <li>Executive confidence</li>
-            </ul>
-            <p>It transforms pre-sales from a pitch into a collaborative solution design experience.</p>
-          </details>
         </div>
       </div>
     </section>
+
   </main>
 
-  <dialog class="modal" id="pilotModal" aria-label="Pilot interest form">
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-box">VISA</div>
+        <span class="footer__label">Government Solutions Marketplace</span>
+      </div>
+      <div class="footer__credit">
+        Created and developed by Erico Rodrigues<br>
+        Visa Inc. © 2025–2026
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Pilot / Demo Request Modal ── -->
+  <dialog class="modal" id="pilotModal" aria-label="Demo request form">
     <form class="modal__inner" id="pilotForm" method="dialog">
       <div class="modal__head">
         <div>
-          <div class="modal__title">Express interest in a pilot</div>
-          <div class="modal__sub">
-            We’ll respond with a scoped plan and timeline.
-          </div>
+          <div class="modal__title">Request a demo session</div>
+          <div class="modal__sub">We'll respond with a scoped plan and timeline.</div>
         </div>
-        <button class="icon-button" type="button" id="closeModal">
-          <span class="sr-only">Close</span>
-          ✕
-        </button>
+        <button class="icon-button" type="button" id="closeModal" aria-label="Close">✕</button>
       </div>
 
       <div class="modal__body">
@@ -457,11 +346,11 @@
         <div class="field">
           <label for="notes">What are you trying to achieve?</label>
           <textarea id="notes" name="notes" rows="4"
-            placeholder="Brief context, target users, constraints, success metrics…" required></textarea>
+            placeholder="Brief context, target client, constraints, success metrics…" required></textarea>
         </div>
 
         <div class="field">
-          <label for="repo">GitHub repo</label>
+          <label for="repo">Solution reference</label>
           <input id="repo" name="repo" type="url" readonly />
         </div>
 
@@ -471,12 +360,8 @@
         </label>
 
         <div class="modal__actions">
-          <button class="button button--primary" type="button" id="submitPilot">
-            Generate draft
-          </button>
-          <button class="button button--ghost" type="button" id="copyPilot">
-            Copy request
-          </button>
+          <button class="btn btn--primary" type="button" id="submitPilot">Generate draft</button>
+          <button class="btn btn--ghost" type="button" id="copyPilot">Copy request</button>
           <a class="link" id="openEmail" href="#" target="_blank" rel="noreferrer">Open email app</a>
         </div>
 
@@ -494,7 +379,6 @@
             <input id="draftSubject" name="draftSubject" type="text" readonly />
           </div>
         </div>
-
         <div class="field">
           <label for="draftBody">Email body</label>
           <textarea id="draftBody" name="draftBody" rows="6" readonly></textarea>
@@ -503,185 +387,175 @@
     </form>
   </dialog>
 
+  <!-- ── Solutions Data ── -->
   <script type="application/json" id="solutionsData">
-      [
-        {
-          "id": "panama-canal-project",
-          "name": "Panama Canal Project Hub",
-          "category": "Infrastructure",
-          "summary": "A client-facing project hub to track canal operations initiatives: scope, milestones, documents, and stakeholder updates in one place.",
-          "features": [
-            "Milestones, timelines, and status reporting — Real-time tracking with executive visibility to ensure on-time delivery.",
-            "Document library with versioning — Centralized repository with controlled access and full audit trail.",
-            "Stakeholder update feed + approvals — Structured communication and approval workflows to accelerate decisions.",
-            "Integration-ready data export (CSV/JSON) — Standardized data outputs for seamless interoperability."
-          ],
-          "useCase": "Stand up a clear, auditable project cockpit for canal-related programs so stakeholders can see progress and blockers immediately.",
-          "repoUrl": "https://github.com/ericomack1983/canal",
-          "tryUrl": "https://dof6b3u94gs7w.cloudfront.net/#/login",
-          "githubUrl": "https://github.com/ericomack1983/canal",
-          "openSourceFirst": false
-        },
-        {
-          "id": "aavance-ngo",
-          "name": "AAvance NGO Disbursement",
-          "category": "DISBURSEMENT",
-          "summary": "Secure and compliant fund distribution platform tailored with Visa Alias Directory for NGOs targeting vulnerable and unbanked populations.",
-          "features": [
-            "Anti De-Duplication of beneficiaries feature.",
-            "Single Beneficiary ID.",
-            "Seamless onboarding for beneficiaries without traditional bank accounts.",
-            "Multi-rail disbursement options (mobile wallets, cash pick-up, prepaid cards).",
-            "Real-time tracking and full audit trails for donor reporting."
-          ],
-          "useCase": "Provide NGOs with a turnkey, traceable way to distribute financial aid to remote or displaced populations efficiently.",
-          "repoUrl": "#",
-          "tryUrl": "#",
-          "openSourceFirst": false,
-          "mvpReady": false,
-          "pilotRunning": true,
-          "githubReady": false
-        },
-        {
-          "id": "underwriting-rules",
-          "name": "Panama E‑Market Place Project",
-          "category": "Marketplace",
-          "summary": "A turnkey marketplace foundation to onboard sellers, list products/services, and manage orders with clear operational visibility.",
-          "features": [
-            "Seller onboarding + basic verification → KYC/KYB, tax ID validation, bank account verification, risk scoring.",
-            "Catalog listings with categories/tags → Standardized taxonomy, SKU normalization, price benchmarking, bulk upload APIs.",
-            "Order & fulfillment tracking → PO generation, milestone tracking, delivery confirmation, SLA monitoring.",
-            "Admin console → Seller moderation, dispute management, analytics dashboard, audit logs, compliance reporting."
-          ],
-          "useCase": "Lean SMB e-marketplace pilot to validate real market demand, operational feasibility, supplier adoption, and unit economics before committing to full-scale rollout.",
-          "repoUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
-          "tryUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
-          "openSourceFirst": false,
-          "githubReady": false
-        },
-        {
-          "id": "kyc-kyb",
-          "name": "LAC Government Disbursement",
-          "category": "PAYOUT INFRASTRUCTURE",
-          "summary": "A provider-agnostic orchestration layer that enables compliant, low-cost government disbursements across banks, wallets, and cash networks in high-informality markets.",
-          "features": [
-            "Vendor-agnostic payout adapters (banks, wallets, cash networks)",
-            "Risk-based KYC / step-up verification for informal populations",
-            "Beneficiary identity resolution (duplicate & fraud prevention)",
-            "Exception management + retry logic across rails",
-            "PII minimization + tokenized identity architecture",
-            "Cash-to-digital migration pathways"
-          ],
-          "useCase": "Enable ministries and development banks to distribute subsidies, social benefits, and emergency funds at scale — while preserving flexibility to switch payout providers and reduce leakage in high-cash economies.",
-          "repoUrl": "https://solution-blueprint-gd-ytfu-baiu5hxc5-ericomack1983s-projects.vercel.app/",
-          "openSourceFirst": false,
-          "mvpReady": false,
-          "githubReady": false,
-          "masterDeckReady": true
-        },
-        {
-          "id": "dps-prosperidad",
-          "name": "DPS – Prosperidad Social",
-          "category": "DISBURSEMENT",
-          "summary": "Client-facing strategy app for Colombia's Prosperidad Social (DPS) — showcasing how Visa+ enables unified beneficiary identity, fraud-resistant disbursements, and multi-rail payments across social welfare programs.",
-          "features": [
-            "Visa+ Alias Directory for single beneficiary identity across programs",
-            "Anti de-duplication & fraud prevention via beneficiary resolution",
-            "Multi-rail disbursement (banks, wallets, cash correspondents)",
-            "Eligibility verification & automated payment credential issuance",
-            "Controlled directory access with parent–child institutional model",
-            "Coverage across Renta Ciudadana, Devolución IVA, Colombia Mayor & more"
-          ],
-          "useCase": "Equip DPS and the Colombian government with a unified, Visa+-powered disbursement framework to deliver social transfers securely to 1.6M+ households — reducing fraud, eliminating duplication, and accelerating financial inclusion nationwide.",
-          "repoUrl": "#",
-          "tryUrl": "#",
-          "openSourceFirst": false,
-          "mvpReady": false,
-          "pilotRunning": false,
-          "githubReady": false,
-          "masterDeckReady": true
-        },
-        {
-          "id": "visa-gov-sdk",
-          "name": "@visa-gov/sdk",
-          "category": "Infrastructure",
-          "summary": "Government procurement is slow, opaque, and expensive. @visa-gov/sdk wires the full Visa B2B payment infrastructure into a single TypeScript package — letting agencies go from discovering a supplier to settling a payment in one coherent flow, with AI-powered scoring and real-time payment controls at every step.",
-          "features": [
-            "SDK — Full Developer Control for B2B — TypeScript-native package exposing the complete Visa B2B API surface: supplier discovery, payment controls, and settlement in one coherent flow.",
-            "MCP Server — AI Agents, Zero Code — Model Context Protocol server lets AI agents drive end-to-end procurement workflows without custom integration work.",
-            "AI-powered supplier scoring with real-time payment controls at every step of the procurement lifecycle."
-          ],
-          "useCase": "Fast adoption for Fintech companies and Visa providers looking to integrate government B2B procurement and payment flows into their platforms.",
-          "repoUrl": "https://interactive.ai-optime.com/campaign/video/VmtSR1UxUnJOVkpRVkRBOStQ",
-          "tryUrl": "https://vgov-procurement.vercel.app/login",
-          "githubUrl": "https://github.com/ericomack1983/visa-gov-sdk",
-          "openSourceFirst": false,
-          "isOss": true,
-          "mvpReady": true,
-          "githubReady": true,
-          "hackathonLabel": "Hackathon 2026"
-        },
-        {
-          "id": "student-beca-cr",
-          "name": "Student Beca CR",
-          "category": "DISBURSEMENT & ISSUANCE",
-          "summary": "A Costa Rican citizen seeking financial aid to study in Costa Rica or abroad can access government-funded scholarships disbursed instantly through a Visa card — removing friction between approval and access to funds.",
-          "features": [
-            "Instant card issuance — Scholarship recipients receive a Visa card the moment their eligibility is approved, with no branch visit required.",
-            "Government-funded disbursement — Public scholarship funds flow directly from the issuing authority to the student's Visa card in real time.",
-            "Digital-first onboarding — Students complete identity verification and enrollment fully online, reducing administrative overhead.",
-            "Real-time fund tracking — Students and program administrators can monitor disbursement status and card balance through a unified dashboard."
-          ],
-          "useCase": "Enable Costa Rican students approved for government scholarships to instantly receive and spend their academic funding via a Visa card — whether studying domestically or abroad.",
-          "repoUrl": "#",
-          "tryUrl": "https://beca-ucr-demo.vercel.app/",
-          "githubUrl": "https://github.com/ericomack1983/beca-ucr-demo",
-          "openSourceFirst": false,
-          "mvpReady": true,
-          "githubReady": true,
-          "statusIndex": 0
-        },
-        {
-          "id": "mtt-panama",
-          "name": "MTT Panama",
-          "category": "Infrastructure",
-          "summary": "A modern turnkey platform for Panama's mass transit ecosystem — enabling seamless fare management, multi-modal card integration, and real-time operational visibility for transit authorities and riders.",
-          "features": [
-            "Multi-modal transit card management — Unified credential across bus, metro, and ferry networks with real-time balance and top-up.",
-            "Fare engine & rule configuration — Configurable pricing rules, transfer discounts, and time-based fare policies without code changes.",
-            "Operator dashboard — Live fleet tracking, ridership analytics, revenue reconciliation, and exception management in one view.",
-            "Open-loop acceptance — Contactless bank card and mobile wallet acceptance alongside closed-loop transit credentials."
-          ],
-          "useCase": "Equip Panama's transit authority with a unified, card-based fare platform that reduces cash dependency, accelerates boarding, and gives operators real-time visibility into ridership and revenue.",
-          "repoUrl": "#",
-          "tryUrl": "https://panama-mttv3.vercel.app/",
-          "openSourceFirst": false,
-          "mvpReady": true,
-          "githubReady": false,
-          "statusIndex": 0
-        },
-        {
-          "id": "visa-intelligent-commerce",
-          "name": "Visa Intelligent Commerce",
-          "category": "Infrastructure",
-          "summary": "A full-fledged reference application demonstrating end-to-end Visa Intelligent Commerce capabilities with an AI-powered shopping agent — showcasing complete integrations across agentic commerce, token provisioning, passkey authentication, and conversational AI for seamless consumer experiences.",
-          "features": [
-            "Visa Intelligent Commerce (VIC) — End-to-end agentic commerce flow with AI-driven product discovery and checkout.",
-            "Visa Token Service (VTS) — Payment token provisioning and management for secure, credential-free transactions.",
-            "Visa Payment Passkey (VPP) — WebAuthn passkey authentication for frictionless, secure checkout without passwords.",
-            "AI Shopping Agent — Conversational product search and personalized recommendations powered by LangGraph.",
-            "Model Context Protocol (MCP) — Tool-based AI interactions enabling seamless end-to-end shopping experiences."
-          ],
-          "useCase": "Agentic payments for consumers — enabling AI agents to discover products, authenticate, and complete checkout on behalf of users through the full Visa commerce stack.",
-          "repoUrl": "#",
-          "tryUrl": "#",
-          "openSourceFirst": false,
-          "mvpReady": true,
-          "githubReady": false,
-          "statusIndex": 0
-        }
-      ]
-    </script>
+    [
+      {
+        "id": "panama-canal-project",
+        "name": "Panama Canal Project Hub",
+        "category": "Infrastructure",
+        "summary": "A client-facing project hub to track canal operations initiatives: scope, milestones, documents, and stakeholder updates in one place.",
+        "features": [
+          "Milestones, timelines, and status reporting — Real-time tracking with executive visibility to ensure on-time delivery.",
+          "Document library with versioning — Centralized repository with controlled access and full audit trail.",
+          "Stakeholder update feed + approvals — Structured communication and approval workflows to accelerate decisions."
+        ],
+        "useCase": "Stand up a clear, auditable project cockpit for canal-related programs so stakeholders can see progress and blockers immediately.",
+        "repoUrl": "https://github.com/ericomack1983/canal",
+        "tryUrl": "https://dof6b3u94gs7w.cloudfront.net/#/login",
+        "githubUrl": "https://github.com/ericomack1983/canal",
+        "openSourceFirst": false
+      },
+      {
+        "id": "aavance-ngo",
+        "name": "AAvance NGO Disbursement",
+        "category": "DISBURSEMENT",
+        "summary": "Secure and compliant fund distribution platform tailored with Visa Alias Directory for NGOs targeting vulnerable and unbanked populations.",
+        "features": [
+          "Anti De-Duplication of beneficiaries feature.",
+          "Single Beneficiary ID across all program rails.",
+          "Seamless onboarding for beneficiaries without traditional bank accounts.",
+          "Multi-rail disbursement: mobile wallets, cash pick-up, prepaid cards."
+        ],
+        "useCase": "Provide NGOs with a turnkey, traceable way to distribute financial aid to remote or displaced populations efficiently.",
+        "repoUrl": "#",
+        "tryUrl": "#",
+        "openSourceFirst": false,
+        "mvpReady": false,
+        "pilotRunning": true,
+        "githubReady": false
+      },
+      {
+        "id": "underwriting-rules",
+        "name": "Panama E‑Market Place Project",
+        "category": "Marketplace",
+        "summary": "A turnkey marketplace foundation to onboard sellers, list products/services, and manage orders with clear operational visibility.",
+        "features": [
+          "Seller onboarding + KYC/KYB, tax ID validation, bank account verification, risk scoring.",
+          "Catalog listings with categories/tags — SKU normalization, price benchmarking, bulk upload APIs.",
+          "Order & fulfillment tracking — PO generation, milestone tracking, delivery confirmation."
+        ],
+        "useCase": "Lean SMB e-marketplace pilot to validate real market demand, operational feasibility, and unit economics before full-scale rollout.",
+        "repoUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
+        "tryUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
+        "openSourceFirst": false,
+        "githubReady": false
+      },
+      {
+        "id": "kyc-kyb",
+        "name": "LAC Government Disbursement",
+        "category": "PAYOUT INFRASTRUCTURE",
+        "summary": "A provider-agnostic orchestration layer that enables compliant, low-cost government disbursements across banks, wallets, and cash networks in high-informality markets.",
+        "features": [
+          "Vendor-agnostic payout adapters (banks, wallets, cash networks)",
+          "Risk-based KYC / step-up verification for informal populations",
+          "Beneficiary identity resolution — duplicate & fraud prevention",
+          "PII minimization + tokenized identity architecture"
+        ],
+        "useCase": "Enable ministries and development banks to distribute subsidies, social benefits, and emergency funds at scale — with flexibility to switch payout providers.",
+        "repoUrl": "https://solution-blueprint-gd-ytfu-baiu5hxc5-ericomack1983s-projects.vercel.app/",
+        "openSourceFirst": false,
+        "mvpReady": false,
+        "githubReady": false,
+        "masterDeckReady": true
+      },
+      {
+        "id": "dps-prosperidad",
+        "name": "DPS – Prosperidad Social",
+        "category": "DISBURSEMENT",
+        "summary": "Client-facing strategy app for Colombia's Prosperidad Social (DPS) — showcasing how Visa+ enables unified beneficiary identity, fraud-resistant disbursements, and multi-rail payments across social welfare programs.",
+        "features": [
+          "Visa+ Alias Directory for single beneficiary identity across programs",
+          "Anti de-duplication & fraud prevention via beneficiary resolution",
+          "Multi-rail disbursement (banks, wallets, cash correspondents)",
+          "Coverage across Renta Ciudadana, Devolución IVA, Colombia Mayor & more"
+        ],
+        "useCase": "Equip DPS and the Colombian government with a Visa+-powered disbursement framework to deliver social transfers to 1.6M+ households — reducing fraud and eliminating duplication.",
+        "repoUrl": "#",
+        "tryUrl": "#",
+        "openSourceFirst": false,
+        "mvpReady": false,
+        "pilotRunning": false,
+        "githubReady": false,
+        "masterDeckReady": true
+      },
+      {
+        "id": "visa-gov-sdk",
+        "name": "@visa-gov/sdk",
+        "category": "Infrastructure",
+        "summary": "Government procurement is slow, opaque, and expensive. @visa-gov/sdk wires the full Visa B2B payment infrastructure into a single TypeScript package — letting agencies go from discovering a supplier to settling a payment in one coherent flow.",
+        "features": [
+          "SDK — TypeScript-native package exposing the complete Visa B2B API surface: supplier discovery, payment controls, and settlement.",
+          "MCP Server — AI Agents, Zero Code — Model Context Protocol server lets AI agents drive end-to-end procurement workflows.",
+          "AI-powered supplier scoring with real-time payment controls at every step."
+        ],
+        "useCase": "Fast adoption for Fintech companies and Visa providers looking to integrate government B2B procurement and payment flows into their platforms.",
+        "repoUrl": "https://interactive.ai-optime.com/campaign/video/VmtSR1UxUnJOVkpRVkRBOStQ",
+        "tryUrl": "https://vgov-procurement.vercel.app/login",
+        "githubUrl": "https://github.com/ericomack1983/visa-gov-sdk",
+        "openSourceFirst": false,
+        "isOss": true,
+        "mvpReady": true,
+        "githubReady": true,
+        "hackathonLabel": "Hackathon 2026"
+      },
+      {
+        "id": "student-beca-cr",
+        "name": "Student Beca CR",
+        "category": "DISBURSEMENT & ISSUANCE",
+        "summary": "A Costa Rican citizen seeking financial aid can access government-funded scholarships disbursed instantly through a Visa card — removing friction between approval and access to funds.",
+        "features": [
+          "Instant card issuance — Scholarship recipients receive a Visa card the moment their eligibility is approved.",
+          "Government-funded disbursement — Public scholarship funds flow directly to the student's Visa card in real time.",
+          "Digital-first onboarding — Students complete identity verification fully online."
+        ],
+        "useCase": "Enable Costa Rican students approved for government scholarships to instantly receive and spend their academic funding via a Visa card — whether studying domestically or abroad.",
+        "repoUrl": "#",
+        "tryUrl": "https://beca-ucr-demo.vercel.app/",
+        "githubUrl": "https://github.com/ericomack1983/beca-ucr-demo",
+        "openSourceFirst": false,
+        "mvpReady": true,
+        "githubReady": true,
+        "statusIndex": 0
+      },
+      {
+        "id": "mtt-panama",
+        "name": "MTT Panama",
+        "category": "Infrastructure",
+        "summary": "A modern turnkey platform for Panama's mass transit ecosystem — enabling seamless fare management, multi-modal card integration, and real-time operational visibility for transit authorities and riders.",
+        "features": [
+          "Multi-modal transit card management — Unified credential across bus, metro, and ferry with real-time balance and top-up.",
+          "Fare engine & rule configuration — Configurable pricing rules, transfer discounts, time-based fare policies.",
+          "Open-loop acceptance — Contactless bank card and mobile wallet acceptance alongside closed-loop transit credentials."
+        ],
+        "useCase": "Equip Panama's transit authority with a unified, card-based fare platform that reduces cash dependency, accelerates boarding, and gives operators real-time visibility.",
+        "repoUrl": "#",
+        "tryUrl": "https://panama-mttv3.vercel.app/",
+        "openSourceFirst": false,
+        "mvpReady": true,
+        "githubReady": false,
+        "statusIndex": 0
+      },
+      {
+        "id": "visa-intelligent-commerce",
+        "name": "Visa Intelligent Commerce",
+        "category": "Infrastructure",
+        "summary": "A full-fledged reference app demonstrating end-to-end Visa Intelligent Commerce capabilities with an AI-powered shopping agent — showcasing agentic commerce, token provisioning, passkey authentication, and conversational AI.",
+        "features": [
+          "Visa Intelligent Commerce (VIC) — End-to-end agentic commerce flow with AI-driven product discovery and checkout.",
+          "Visa Token Service (VTS) — Payment token provisioning and management for secure, credential-free transactions.",
+          "Visa Payment Passkey (VPP) — WebAuthn passkey authentication for frictionless, secure checkout."
+        ],
+        "useCase": "Agentic payments for consumers — enabling AI agents to discover products, authenticate, and complete checkout on behalf of users through the full Visa commerce stack.",
+        "repoUrl": "#",
+        "tryUrl": "#",
+        "openSourceFirst": false,
+        "mvpReady": true,
+        "githubReady": false,
+        "statusIndex": 0
+      }
+    ]
+  </script>
   <script src="./app.js" defer></script>
 </body>
 
