@@ -204,6 +204,7 @@ img, svg { display: block; }
   text-transform: uppercase; letter-spacing: 0.09em;
 }
 .nav__links { display: flex; align-items: center; gap: 4px; }
+.nav__user + .btn { margin-left: 12px; }
 .nav__link {
   font-size: 13px; color: var(--text-secondary); font-weight: 600;
   padding: 6px 12px; border-radius: var(--r-sm);
@@ -683,6 +684,61 @@ input[readonly], textarea[readonly] {
 }
 .link { font-size: 13px; font-weight: 600; color: var(--visa-blue); }
 .link:hover { text-decoration: underline; }
+
+/* ── Video Lightbox ──────────────────────────────── */
+.video-lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  animation: lb-in 0.22s ease both;
+}
+.video-lightbox[hidden] { display: none; }
+
+@keyframes lb-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.video-lightbox__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(8, 24, 94, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.video-lightbox__container {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 900px;
+  animation: lb-scale 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes lb-scale {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.video-lightbox__close {
+  position: absolute; top: -44px; right: 0;
+  background: rgba(255,255,255,0.15); border: none;
+  color: #fff; width: 36px; height: 36px;
+  border-radius: var(--r-full); font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.15s;
+}
+.video-lightbox__close:hover { background: rgba(255,255,255,0.3); }
+
+.video-lightbox__frame {
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+}
+.video-lightbox__frame iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
 
 /* ── Empty State ─────────────────────────────────── */
 .empty-state { text-align: center; padding: 80px 20px; grid-column: 1/-1; }

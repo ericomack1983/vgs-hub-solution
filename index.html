@@ -390,6 +390,20 @@
     </form>
   </dialog>
 
+  <!-- ── Video Lightbox ── -->
+  <div class="video-lightbox" id="videoLightbox" hidden
+       role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="video-lightbox__backdrop" id="lbBackdrop"></div>
+    <div class="video-lightbox__container">
+      <button class="video-lightbox__close" id="lbClose" aria-label="Close video">✕</button>
+      <div class="video-lightbox__frame">
+        <iframe id="lbIframe" src="" allowfullscreen
+          allow="autoplay; encrypted-media; picture-in-picture"
+          title="Solution video"></iframe>
+      </div>
+    </div>
+  </div>
+
   <!-- ── Solutions Data ── -->
   <script type="application/json" id="solutionsData">
     [
