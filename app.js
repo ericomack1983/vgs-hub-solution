@@ -128,17 +128,17 @@ function cardTemplate(solution) {
   }
 
   /* ── CTA Buttons ── */
-  const demoBtn = tryUrl
+  const demoBtn = (tryUrl && !isDisabled)
     ? `<a class="btn btn--primary btn--sm" href="${escapeHtml(tryUrl)}" target="_blank" rel="noreferrer noopener">▶ Try Demo</a>`
     : `<span class="btn btn--muted btn--sm" aria-disabled="true">▶ Try Demo</span>`;
 
-  const blueprintBtn = blueprintUrl
+  const blueprintBtn = (blueprintUrl && !isDisabled)
     ? `<a class="btn btn--ghost btn--sm" href="${escapeHtml(blueprintUrl)}" target="_blank" rel="noreferrer">Blueprint</a>`
     : `<span class="btn btn--muted btn--sm" aria-disabled="true">Blueprint</span>`;
 
-  const githubBtn = githubUrl
+  const githubBtn = (githubUrl && !isDisabled)
     ? `<a class="btn btn--dark btn--sm" href="${escapeHtml(githubUrl)}" target="_blank" rel="noreferrer">GitHub</a>`
-    : `<button class="btn btn--dark btn--sm" type="button" data-action="pilot">GitHub</button>`;
+    : `<span class="btn btn--muted btn--sm" aria-disabled="true">GitHub</span>`;
 
   const videoBtn = videoUrl
     ? `<button class="btn btn--video btn--sm" type="button"
