@@ -148,10 +148,18 @@ function cardTemplate(solution) {
        </button>`
     : "";
 
+  const isDisabled = Boolean(solution.disabled);
+  const disabledLabel = solution.disabledLabel || "Coming Soon";
+
   return `
-    <article class="card" data-solution-id="${escapeHtml(solution.id)}">
+    <article class="card${isDisabled ? " card--disabled" : ""}" data-solution-id="${escapeHtml(solution.id)}">
       <!-- Category color bar -->
       <div class="card__color-bar" style="background:${color.bar}"></div>
+
+      ${isDisabled ? `
+      <div class="card__disabled-overlay" aria-hidden="true">
+        <span class="card__disabled-badge">${escapeHtml(disabledLabel)}</span>
+      </div>` : ""}
 
       ${solution.hackathonLabel
         ? `<div class="card__ribbon">${escapeHtml(solution.hackathonLabel)}</div>`

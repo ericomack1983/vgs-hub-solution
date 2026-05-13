@@ -508,6 +508,33 @@ img, svg { display: block; }
   margin-top: auto; flex-wrap: wrap;
 }
 
+/* ── Disabled Card ───────────────────────────────── */
+.card--disabled {
+  position: relative;
+  pointer-events: none;
+}
+.card--disabled .card__body {
+  filter: blur(1.2px);
+  opacity: 0.55;
+  user-select: none;
+}
+.card--disabled .card__color-bar { opacity: 0.4; }
+.card__disabled-overlay {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--r-lg);
+  pointer-events: none;
+}
+.card__disabled-badge {
+  background: rgba(255,255,255,0.92);
+  border: 1.5px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  padding: 6px 16px; border-radius: var(--r-full);
+  box-shadow: var(--elevation-sm);
+}
+
 /* ── Badges ──────────────────────────────────────── */
 .badge {
   display: inline-flex; align-items: center;
