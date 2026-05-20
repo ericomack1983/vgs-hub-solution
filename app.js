@@ -52,7 +52,7 @@ function getCategoryColor(category) {
 /* ── Status ───────────────────────────────────────── */
 const STATUS_MAP = {
   0: { label: "Initiated",      fill: "0%"  },
-  1: { label: "Under Contract", fill: "25%" },
+  1: { label: "Under Business Review", fill: "25%" },
   2: { label: "POC Ready",      fill: "50%" },
   3: { label: "Pilot Running",  fill: "75%" },
   4: { label: "In Production",  fill: "100%" },
