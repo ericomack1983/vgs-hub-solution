@@ -206,6 +206,8 @@ function cardTemplate(solution) {
           <span class="card__status-label">${status.label}</span>
         </div>
 
+        ${solution.presentedOn ? `<p class="card__presented-on">Presented: ${escapeHtml(solution.presentedOn)}</p>` : ""}
+
         <!-- CTA Buttons -->
         <div class="card__footer">
           ${demoBtn}

@@ -599,6 +599,12 @@ img, svg { display: block; }
   white-space: nowrap; color: var(--text-muted);
 }
 
+.card__presented-on {
+  font-size: 11px; color: var(--text-muted);
+  margin-top: 6px; margin-bottom: 0;
+  letter-spacing: 0.02em;
+}
+
 /* Partners */
 .card__partners {
   display: flex; align-items: center; gap: 12px;
