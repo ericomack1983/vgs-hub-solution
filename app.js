@@ -209,6 +209,7 @@ function cardTemplate(solution) {
         ${solution.presentedOn ? `<p class="card__presented-on">Presented: ${escapeHtml(solution.presentedOn)}</p>` : ""}
         ${solution.pilotSince ? `<p class="card__presented-on">Pilot live since: ${escapeHtml(solution.pilotSince)}</p>` : ""}
         ${solution.submittedOn ? `<p class="card__presented-on">Hackathon submitted: ${escapeHtml(solution.submittedOn)}</p>` : ""}
+        ${solution.meetingNote ? `<p class="card__presented-on">📍 ${escapeHtml(solution.meetingNote)}</p>` : ""}
 
         <!-- CTA Buttons -->
         <div class="card__footer">
