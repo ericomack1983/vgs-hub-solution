@@ -43,7 +43,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background: linear-gradient(150deg, #08185e 0%, #1434cb 55%, #1c40e2 100%);
+      background: linear-gradient(155deg, #060f46 0%, #0f2595 28%, #1434cb 62%, #1c44e6 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -88,8 +88,11 @@
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Card top bar — Visa blue accent */
-    .card__bar { height: 4px; background: var(--visa-blue); }
+    /* Card top bar — gradient accent */
+    .card__bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--visa-blue) 0%, #fcc015 100%);
+    }
 
     .card__body { padding: 36px 36px 32px; }
 
@@ -99,10 +102,11 @@
       gap: 12px; margin-bottom: 32px;
     }
     .brand__logo {
-      background: var(--visa-blue); color: #fff;
+      background: transparent; color: #fff;
       font-size: 16px; font-weight: 900; letter-spacing: 0.08em;
       padding: 5px 10px; border-radius: var(--r-xs); line-height: 1;
       flex-shrink: 0;
+      display: none; /* use inline SVG instead */
     }
     .brand__divider {
       width: 1px; height: 26px;
