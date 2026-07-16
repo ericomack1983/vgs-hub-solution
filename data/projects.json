@@ -1,0 +1,528 @@
+[
+  {
+    "id": "panama-canal-project",
+    "name": "Panama Canal Project",
+    "client": "Panama Canal Authority (ACP)",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0417",
+      "aanr": "AANR-LAC-00231",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Panama",
+      "pillar": "Infrastructure",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Panama Canal Project Hub",
+      "category": "Navy Toll (Panama Canal)",
+      "tags": [
+        "Project Hub",
+        "Milestones",
+        "Infrastructure"
+      ],
+      "summary": "A client-facing project hub to track canal operations initiatives: scope, milestones, documents, and stakeholder updates in one place.",
+      "features": [
+        "Milestones, timelines, and status reporting — Real-time tracking with executive visibility to ensure on-time delivery.",
+        "Document library with versioning — Centralized repository with controlled access and full audit trail.",
+        "Stakeholder update feed + approvals — Structured communication and approval workflows to accelerate decisions."
+      ],
+      "useCase": "Stand up a clear, auditable project cockpit for canal-related programs so stakeholders can see progress and blockers immediately.",
+      "tryUrl": "https://dof6b3u94gs7w.cloudfront.net/#/login",
+      "repoUrl": "https://github.com/ericomack1983/canal",
+      "githubUrl": "https://github.com/ericomack1983/canal",
+      "statusIndex": 5,
+      "presentedOn": "Apr 30, 2026"
+    }
+  },
+  {
+    "id": "aavance-ngo",
+    "name": "AAvance NGO Disbursement",
+    "client": "AAvance (NGO)",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0588",
+      "aanr": "AANR-LAC-00477",
+      "status": "in-progress",
+      "stage": 6,
+      "owner": "Erico Rodrigues",
+      "market": "LAC",
+      "pillar": "Government Disbursement",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "AAvance NGO Disbursement",
+      "category": "DISBURSEMENT",
+      "tags": [
+        "Disbursement",
+        "Alias Directory",
+        "NGO"
+      ],
+      "summary": "Secure and compliant fund distribution platform tailored with Visa Alias Directory for NGOs targeting vulnerable and unbanked populations.",
+      "features": [
+        "Anti De-Duplication of beneficiaries feature.",
+        "Single Beneficiary ID across all program rails.",
+        "Seamless onboarding for beneficiaries without traditional bank accounts.",
+        "Multi-rail disbursement: mobile wallets, cash pick-up, prepaid cards."
+      ],
+      "useCase": "Provide NGOs with a turnkey, traceable way to distribute financial aid to remote or displaced populations efficiently.",
+      "repoUrl": "#",
+      "tryUrl": "#",
+      "videoUrl": "https://www.youtube.com/watch?v=LZ-aNobVg5k",
+      "openSourceFirst": false,
+      "mvpReady": false,
+      "pilotRunning": true,
+      "githubReady": false,
+      "pilotSince": "Jul 2025",
+      "gtmStage": 6,
+      "paymentVolume": 40000,
+      "fiscalYear": "FY26",
+      "paymentVolumeSeries": [
+        { "label": "Q1", "value": 6000 },
+        { "label": "Q2", "value": 15000 },
+        { "label": "Q3", "value": 28000 },
+        { "label": "Q4", "value": 40000 }
+      ]
+    }
+  },
+  {
+    "id": "underwriting-rules",
+    "name": "Panama E‑Market Place Project",
+    "client": "Panama SMB Marketplace Pilot",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0103",
+      "aanr": "AANR-LAC-00099",
+      "status": "on-hold",
+      "owner": "Erico Rodrigues",
+      "market": "Panama",
+      "pillar": "Marketplace",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Panama E‑Market Place Project",
+      "category": "Marketplace",
+      "tags": [
+        "Marketplace",
+        "KYC/KYB",
+        "SMB"
+      ],
+      "summary": "A turnkey marketplace foundation to onboard sellers, list products/services, and manage orders with clear operational visibility.",
+      "features": [
+        "Seller onboarding + KYC/KYB, tax ID validation, bank account verification, risk scoring.",
+        "Catalog listings with categories/tags — SKU normalization, price benchmarking, bulk upload APIs.",
+        "Order & fulfillment tracking — PO generation, milestone tracking, delivery confirmation."
+      ],
+      "useCase": "Lean SMB e-marketplace pilot to validate real market demand, operational feasibility, and unit economics before full-scale rollout.",
+      "repoUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
+      "tryUrl": "file:///Users/ericorodrigues/Desktop/Panama%20E-marketplace/index.html",
+      "openSourceFirst": false,
+      "githubReady": false,
+      "disabled": true,
+      "disabledLabel": "Paused"
+    }
+  },
+  {
+    "id": "kyc-kyb",
+    "name": "LAC Government Disbursement",
+    "client": "Valid & HST",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0892",
+      "aanr": "AANR-LAC-00892",
+      "status": "discovery",
+      "owner": "Erico Rodrigues",
+      "market": "Brazil",
+      "pillar": "Payout Infrastructure",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "LAC Government Disbursement",
+      "category": "PAYOUT INFRASTRUCTURE",
+      "tags": [
+        "Payout Orchestration",
+        "KYC",
+        "Identity"
+      ],
+      "summary": "A provider-agnostic orchestration layer that enables compliant, low-cost government disbursements across banks, wallets, and cash networks in high-informality markets.",
+      "features": [
+        "Vendor-agnostic payout adapters (banks, wallets, cash networks)",
+        "Risk-based KYC / step-up verification for informal populations",
+        "Beneficiary identity resolution — duplicate & fraud prevention",
+        "PII minimization + tokenized identity architecture"
+      ],
+      "useCase": "Enable ministries and development banks to distribute subsidies, social benefits, and emergency funds at scale — with flexibility to switch payout providers.",
+      "repoUrl": "https://solution-blueprint-gd-ytfu-baiu5hxc5-ericomack1983s-projects.vercel.app/",
+      "openSourceFirst": false,
+      "mvpReady": false,
+      "githubReady": false,
+      "masterDeckReady": true,
+      "meetingNote": "Meeting with Valid & HST — Apr 22, 2026 · Brazil",
+      "govTechs": ["valid", "hst"]
+    }
+  },
+  {
+    "id": "dps-prosperidad",
+    "name": "DPS – Prosperidad Social",
+    "client": "Prosperidad Social (DPS)",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0214",
+      "aanr": "AANR-LAC-00310",
+      "status": "on-hold",
+      "owner": "Erico Rodrigues",
+      "market": "Colombia",
+      "pillar": "Government Disbursement",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "DPS – Prosperidad Social",
+      "category": "DISBURSEMENT",
+      "tags": [
+        "Disbursement",
+        "Visa+",
+        "Social Welfare"
+      ],
+      "summary": "Client-facing strategy app for Colombia's Prosperidad Social (DPS) — showcasing how Visa+ enables unified beneficiary identity, fraud-resistant disbursements, and multi-rail payments across social welfare programs.",
+      "features": [
+        "Visa+ Alias Directory for single beneficiary identity across programs",
+        "Anti de-duplication & fraud prevention via beneficiary resolution",
+        "Multi-rail disbursement (banks, wallets, cash correspondents)",
+        "Coverage across Renta Ciudadana, Devolución IVA, Colombia Mayor & more"
+      ],
+      "useCase": "Equip DPS and the Colombian government with a Visa+-powered disbursement framework to deliver social transfers to 1.6M+ households — reducing fraud and eliminating duplication.",
+      "repoUrl": "#",
+      "tryUrl": "#",
+      "openSourceFirst": false,
+      "mvpReady": false,
+      "pilotRunning": false,
+      "githubReady": false,
+      "masterDeckReady": true,
+      "disabled": true,
+      "disabledLabel": "Paused"
+    }
+  },
+  {
+    "id": "visa-gov-sdk",
+    "name": "@visa-gov/sdk",
+    "client": "Visa Government Solutions",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0451",
+      "aanr": "AANR-LAC-00501",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "LAC",
+      "pillar": "Government Procurement",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "@visa-gov/sdk",
+      "category": "Infrastructure",
+      "tags": [
+        "SDK",
+        "Procurement",
+        "MCP"
+      ],
+      "summary": "Government procurement is slow, opaque, and expensive. @visa-gov/sdk wires the full Visa B2B payment infrastructure into a single TypeScript package — letting agencies go from discovering a supplier to settling a payment in one coherent flow.",
+      "features": [
+        "SDK — TypeScript-native package exposing the complete Visa B2B API surface: supplier discovery, payment controls, and settlement.",
+        "MCP Server — AI Agents, Zero Code — Model Context Protocol server lets AI agents drive end-to-end procurement workflows.",
+        "AI-powered supplier scoring with real-time payment controls at every step."
+      ],
+      "useCase": "Fast adoption for Fintech companies and Visa providers looking to integrate government B2B procurement and payment flows into their platforms.",
+      "repoUrl": "https://interactive.ai-optime.com/campaign/video/VmtSR1UxUnJOVkpRVkRBOStQ",
+      "tryUrl": "https://vgov-procurement.vercel.app/login",
+      "githubUrl": "https://github.com/ericomack1983/visa-gov-sdk",
+      "openSourceFirst": false,
+      "isOss": true,
+      "mvpReady": true,
+      "githubReady": true,
+      "hackathonLabel": "Hackathon 2026",
+      "submittedOn": "May 17, 2026"
+    }
+  },
+  {
+    "id": "student-beca-cr",
+    "name": "Student Beca CR",
+    "client": "Government of Costa Rica / UCR",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0530",
+      "aanr": "$1,000,000",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Costa Rica",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Student Beca CR",
+      "category": "DISBURSEMENT & ISSUANCE",
+      "tags": [
+        "Issuance",
+        "Scholarships",
+        "Visa Direct"
+      ],
+      "summary": "A Costa Rican citizen seeking financial aid can access government-funded scholarships disbursed instantly through a Visa card — removing friction between approval and access to funds.",
+      "features": [
+        "Instant card issuance — Scholarship recipients receive a Visa card the moment their eligibility is approved.",
+        "Government-funded disbursement — Public scholarship funds flow directly to the student's Visa card in real time.",
+        "Digital-first onboarding — Students complete identity verification fully online."
+      ],
+      "useCase": "Enable Costa Rican students approved for government scholarships to instantly receive and spend their academic funding via a Visa card — whether studying domestically or abroad.",
+      "tryUrl": "https://beca-ucr-demo.vercel.app/",
+      "repoUrl": "#",
+      "githubUrl": "https://github.com/ericomack1983/beca-ucr-demo",
+      "statusIndex": 5,
+      "mvpReady": true,
+      "githubReady": true,
+      "presentedOn": "May 13, 2026"
+    }
+  },
+  {
+    "id": "imas-cr",
+    "name": "IMAS CR — Avancemos",
+    "client": "IMAS × BNCR",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0561",
+      "aanr": "AANR-LAC-00566",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Costa Rica",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "IMAS CR — Avancemos",
+      "category": "DISBURSEMENT & ISSUANCE",
+      "tags": [
+        "Conditional Cash Transfer",
+        "Prepaid",
+        "Biometric KYC"
+      ],
+      "summary": "Costa Rica's Avancemos conditional cash transfer program — delivering monthly stipends to 325,000+ students via a Visa prepaid card, with digital enrollment, biometric KYC, and instant disbursement through IMAS × BNCR.",
+      "features": [
+        "Conditional cash transfer via Visa prepaid card — ₡55,000/month to eligible households, no bank account required.",
+        "SINIRUBE/MEP real-time verification — eligibility checked live against government databases at enrollment.",
+        "Digital-first onboarding with biometric KYC — liveness check and document upload, fully online across 82 cantons.",
+        "Instant disbursement via Visa Direct — funds arrive the moment eligibility is confirmed."
+      ],
+      "useCase": "Enable IMAS and BNCR to deliver Avancemos conditional cash transfers to 325,000+ students across Costa Rica through a Visa prepaid card — reducing fraud, eliminating cash dependency, and ensuring funds reach beneficiaries in real time.",
+      "repoUrl": "https://github.com/ericomack1983/imas-cr",
+      "tryUrl": "https://imas-cr.vercel.app/",
+      "githubUrl": "https://github.com/ericomack1983/imas-cr",
+      "openSourceFirst": false,
+      "mvpReady": true,
+      "githubReady": true,
+      "statusIndex": 5
+    }
+  },
+  {
+    "id": "mtt-panama",
+    "name": "MTT Panama",
+    "client": "Panama Transit Authority (MTT)",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0303",
+      "aanr": "AANR-LAC-00288",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Panama",
+      "pillar": "Infrastructure",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "MTT Panama",
+      "category": "Infrastructure",
+      "tags": [
+        "Transit",
+        "Fare Management",
+        "Open-loop"
+      ],
+      "summary": "A modern turnkey platform for Panama's mass transit ecosystem — enabling seamless fare management, multi-modal card integration, and real-time operational visibility for transit authorities and riders.",
+      "features": [
+        "Multi-modal transit card management — Unified credential across bus, metro, and ferry with real-time balance and top-up.",
+        "Fare engine & rule configuration — Configurable pricing rules, transfer discounts, time-based fare policies.",
+        "Open-loop acceptance — Contactless bank card and mobile wallet acceptance alongside closed-loop transit credentials."
+      ],
+      "useCase": "Equip Panama's transit authority with a unified, card-based fare platform that reduces cash dependency, accelerates boarding, and gives operators real-time visibility.",
+      "repoUrl": "#",
+      "tryUrl": "https://panama-mttv3.vercel.app/",
+      "openSourceFirst": false,
+      "mvpReady": true,
+      "githubReady": false,
+      "statusIndex": 5,
+      "presentedOn": "Mar 2026"
+    }
+  },
+  {
+    "id": "macro-disbursement",
+    "name": "Macro Disbursement",
+    "client": "Banco Macro / ANSES",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0520",
+      "aanr": "AANR-LAC-00520",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Argentina",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Macro Disbursement",
+      "category": "DISBURSEMENT & ISSUANCE",
+      "tags": [
+        "Disbursement",
+        "High-volume",
+        "Multi-rail"
+      ],
+      "summary": "A scalable disbursement platform designed to handle large-volume fund distribution across multiple payment rails — built for governments, development banks, and institutions managing macro-level social transfer programs.",
+      "features": [
+        "High-volume batch disbursements across banks, wallets, and cash networks.",
+        "Beneficiary identity resolution with fraud prevention and de-duplication.",
+        "Real-time transaction monitoring and program-level reconciliation."
+      ],
+      "useCase": "Enable institutions to disburse large-scale financial transfers at macro volume — with full traceability, multi-rail flexibility, and compliance controls built in.",
+      "repoUrl": "https://github.com/ericomack1983/macro-disbursment",
+      "tryUrl": "https://macro-disbursment.vercel.app/",
+      "openSourceFirst": false,
+      "mvpReady": true,
+      "githubReady": false,
+      "statusIndex": 5,
+      "presentedOn": "May 20, 2026"
+    }
+  },
+  {
+    "id": "visa-gov-disbursement-boilerplate",
+    "name": "Visa Gov Disbursement Boilerplate",
+    "client": "Visa Government Solutions",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0614",
+      "aanr": "AANR-LAC-00611",
+      "status": "in-progress",
+      "owner": "Erico Rodrigues",
+      "market": "Brazil (Maranhão)",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Visa Gov Disbursement Boilerplate",
+      "category": "DISBURSEMENT & ISSUANCE",
+      "tags": [
+        "Boilerplate",
+        "Open Source",
+        "Disbursement"
+      ],
+      "summary": "A production-ready boilerplate for building government disbursement applications on Visa infrastructure — pre-wired with multi-rail payout adapters, beneficiary identity resolution, and compliance controls so teams can ship faster.",
+      "features": [
+        "Multi-rail payout adapters — banks, wallets, and cash networks ready out of the box.",
+        "Beneficiary identity resolution — deduplication and fraud prevention built in.",
+        "Compliance-first architecture — KYC/KYB hooks, audit trail, and PII minimization patterns.",
+        "Configurable program rules — disbursement caps, eligibility gates, and reconciliation workflows."
+      ],
+      "useCase": "Give government agencies and development banks a battle-tested starting point for disbursement programs — reducing time-to-pilot from months to days.",
+      "repoUrl": "https://github.com/ericomack1983/visa-gov-disbursment-boilerplate",
+      "githubUrl": "https://github.com/ericomack1983/visa-gov-disbursment-boilerplate",
+      "tryUrl": "https://visa-brazil-maranhao-demo.vercel.app/",
+      "openSourceFirst": true,
+      "isOss": true,
+      "mvpReady": true,
+      "githubReady": true,
+      "statusIndex": 2
+    }
+  },
+  {
+    "id": "visa-intelligent-commerce",
+    "name": "Visa Intelligent Commerce",
+    "client": "Visa",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0635",
+      "aanr": "AANR-LAC-00640",
+      "status": "prospect",
+      "owner": "Erico Rodrigues",
+      "market": "Global",
+      "pillar": "Infrastructure",
+      "placeholder": true
+    },
+    "solution": {
+      "title": "Visa Intelligent Commerce",
+      "category": "Infrastructure",
+      "tags": [
+        "Agentic Commerce",
+        "VTS",
+        "Passkey"
+      ],
+      "summary": "A full-fledged reference app demonstrating end-to-end Visa Intelligent Commerce capabilities with an AI-powered shopping agent — showcasing agentic commerce, token provisioning, passkey authentication, and conversational AI.",
+      "features": [
+        "Visa Intelligent Commerce (VIC) — End-to-end agentic commerce flow with AI-driven product discovery and checkout.",
+        "Visa Token Service (VTS) — Payment token provisioning and management for secure, credential-free transactions.",
+        "Visa Payment Passkey (VPP) — WebAuthn passkey authentication for frictionless, secure checkout."
+      ],
+      "useCase": "Agentic payments for consumers — enabling AI agents to discover products, authenticate, and complete checkout on behalf of users through the full Visa commerce stack.",
+      "repoUrl": "#",
+      "tryUrl": "#",
+      "openSourceFirst": false,
+      "mvpReady": true,
+      "githubReady": false,
+      "statusIndex": 0
+    }
+  },
+  {
+    "id": "sefin-honduras-payroll",
+    "name": "SEFIN Honduras — Public Payroll Modernization",
+    "client": "SEFIN (Secretaría de Finanzas)",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0701",
+      "aanr": "AANR-LAC-00712",
+      "status": "discovery",
+      "owner": "Erico Rodrigues",
+      "market": "Honduras",
+      "pillar": "Government Disbursement",
+      "placeholder": true
+    }
+  },
+  {
+    "id": "anses-argentina-benefits",
+    "name": "ANSES Argentina — Benefits Digitization",
+    "client": "ANSES",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0725",
+      "aanr": "AANR-LAC-00733",
+      "status": "prospect",
+      "owner": "Erico Rodrigues",
+      "market": "Argentina",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    }
+  },
+  {
+    "id": "banco-patagonia",
+    "name": "Banco Patagonia Scholarship Disbursement",
+    "client": "Banco Patagonia",
+    "sales": {
+      "dynamicsProjectNumber": "DYN-2026-0748",
+      "aanr": "AANR-LAC-00751",
+      "status": "prospect",
+      "stage": 0,
+      "owner": "Erico Rodrigues",
+      "market": "Argentina",
+      "pillar": "Disbursement & Issuance",
+      "placeholder": true
+    },
+    "gtm": {
+      "stage": 1
+    },
+    "solution": {
+      "title": "Banco Patagonia Scholarship Disbursement",
+      "category": "DISBURSEMENT & ISSUANCE",
+      "tags": [
+        "Disbursement",
+        "Scholarships",
+        "Issuance"
+      ],
+      "summary": "A scholarship disbursement program for Banco Patagonia that gets academic aid instantly into students' hands via Visa — removing friction between approval and access to funds.",
+      "features": [
+        "Instant card issuance — Scholarship recipients receive a Visa card the moment their eligibility is approved.",
+        "Institution-funded disbursement — Scholarship funds flow directly to the student's Visa account in real time.",
+        "Digital-first onboarding — Students complete identity verification fully online."
+      ],
+      "useCase": "Enable Argentine students approved for Banco Patagonia scholarships to instantly receive and spend their academic funding via a Visa card.",
+      "tryUrl": "https://disb-bco-patagonia.vercel.app/",
+      "repoUrl": "#",
+      "statusIndex": 0
+    }
+  }
+]
